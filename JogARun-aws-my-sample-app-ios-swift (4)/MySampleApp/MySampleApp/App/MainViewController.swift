@@ -15,7 +15,8 @@ import UIKit
 import AWSMobileHubHelper
 
 class MainViewController: UITableViewController {
-    
+    var nonLoggedID:String = ""
+
     var demoFeatures: [DemoFeature] = []
     var signInObserver: AnyObject!
     var signOutObserver: AnyObject!
@@ -25,6 +26,7 @@ class MainViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Original value of AWSIdentityManager.default().identityId! = \(AWSIdentityManager.default().identityId!)")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
         // Default theme settings.
@@ -33,22 +35,29 @@ class MainViewController: UITableViewController {
         navigationController!.navigationBar.tintColor = UIColor.white
 
         
-        var demoFeature = DemoFeature.init(
-            name: NSLocalizedString("Create Log",
-                comment: "Label for demo menu option."),
-            detail: NSLocalizedString("Create a new workout",
-                comment: "Description for demo menu option."),
+//        var demoFeature = DemoFeature.init(
+//            name: NSLocalizedString("Create Log",
+//                comment: "Label for demo menu option."),
+//            detail: NSLocalizedString("Create a new workout",
+//                comment: "Description for demo menu option."),
+//            icon: "UserIdentityIcon", storyboard: "CreateLog")
+//        
+//        demoFeatures.append(demoFeature)
+//        
+//        demoFeature = DemoFeature.init(
+//            name: NSLocalizedString("View Log",
+//                comment: "Label for demo menu option."),
+//            detail: NSLocalizedString("View your logs",
+//                comment: "Description for demo menu option."),
+//            icon: "NoSQLIcon", storyboard: "ViewLog")
+//        
+//        demoFeatures.append(demoFeature)
+        let demoFeature = DemoFeature.init(
+            name: NSLocalizedString("Search",
+                                    comment: "Label for demo menu option."),
+            detail: NSLocalizedString("Search for Another User",
+                                      comment: "Description for demo menu option."),
             icon: "UserIdentityIcon", storyboard: "CreateLog")
-        
-        demoFeatures.append(demoFeature)
-        
-        demoFeature = DemoFeature.init(
-            name: NSLocalizedString("View Log",
-                comment: "Label for demo menu option."),
-            detail: NSLocalizedString("View your logs",
-                comment: "Description for demo menu option."),
-            icon: "NoSQLIcon", storyboard: "ViewLog")
-        
         demoFeatures.append(demoFeature)
 
                 signInObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AWSIdentityManagerDidSignIn, object: AWSIdentityManager.default(), queue: OperationQueue.main, using: {[weak self] (note: Notification) -> Void in
@@ -59,11 +68,52 @@ class MainViewController: UITableViewController {
                 
                 signOutObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AWSIdentityManagerDidSignOut, object: AWSIdentityManager.default(), queue: OperationQueue.main, using: {[weak self](note: Notification) -> Void in
                         guard let strongSelf = self else { return }
+                        self?.nonLoggedID = AWSIdentityManager.default().identityId!
                         print("Sign Out Observer observed sign out.")
                         strongSelf.setupRightBarButtonItem()
                 })
-                
+        
+                nonLoggedID = AWSIdentityManager.default().identityId!
                 setupRightBarButtonItem()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        demoFeatures = []
+        //USER LOG IN CHECK
+        //let fuckAll = true
+        print ("non logged id = \(nonLoggedID)")
+        print ("this user id = \(AWSIdentityManager.default().identityId!)")
+        if AWSIdentityManager.default().identityId! == nonLoggedID {
+        //if fuckAll {
+            let demoFeature = DemoFeature.init(
+                name: NSLocalizedString("Search",
+                                        comment: "Label for demo menu option."),
+                detail: NSLocalizedString("Search for Another User",
+                                          comment: "Description for demo menu option."),
+                icon: "UserIdentityIcon", storyboard: "CreateLog")
+            demoFeatures.append(demoFeature)
+        }
+        else {
+            var demoFeature = DemoFeature.init(
+                name: NSLocalizedString("Create Log",
+                                        comment: "Label for demo menu option."),
+                detail: NSLocalizedString("Create a new workout",
+                                          comment: "Description for demo menu option."),
+                icon: "UserIdentityIcon", storyboard: "CreateLog")
+            
+            demoFeatures.append(demoFeature)
+            
+            demoFeature = DemoFeature.init(
+                name: NSLocalizedString("View Log",
+                                        comment: "Label for demo menu option."),
+                detail: NSLocalizedString("View your logs",
+                                          comment: "Description for demo menu option."),
+                icon: "NoSQLIcon", storyboard: "ViewLog")
+            
+            demoFeatures.append(demoFeature)
+           
+            //more table rows here
+        }
+        tableView.reloadData()
     }
     
     deinit {
@@ -118,6 +168,7 @@ class MainViewController: UITableViewController {
     
     func handleLogout() {
         if (AWSIdentityManager.default().isLoggedIn) {
+            //demoFeatures = []
             AWSIdentityManager.default().logout(completionHandler: {(result: Any?, error: Error?) in
                 self.navigationController!.popToRootViewController(animated: false)
                 self.setupRightBarButtonItem()

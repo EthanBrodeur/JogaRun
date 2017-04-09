@@ -13,12 +13,22 @@ import AWSDynamoDB
 
 class ViewLog: UIViewController {
     
+    @IBOutlet weak var loggedinLabel: UILabel!
     @IBOutlet weak var logViewLabel: UILabel!
+    let nonLoggedID = "us-east-1:94254235-fb0b-43d4-a943-8484c4ae4baf"
     
     @IBAction func dataRequested(_ sender: UIButton) {
         loadData()
     }
-    
+    func viewDidAppear() {
+        if AWSIdentityManager.default().identityId! == nonLoggedID {
+            loggedinLabel.text = "You aren't logged in ya bish"
+        }
+        else {
+            loggedinLabel.text = "Hey you're logged in, way to be guy!"
+        }
+
+    }
     func loadData() {
         let objectMapper = AWSDynamoDBObjectMapper.default()
                 
