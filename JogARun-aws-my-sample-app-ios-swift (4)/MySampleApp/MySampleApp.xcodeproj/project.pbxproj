@@ -11,6 +11,7 @@
 		ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631431E9806CF00EB7584 /* CreateLog.storyboard */; };
 		ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631461E98136F00EB7584 /* ViewLog.storyboard */; };
 		ABC631491E98137700EB7584 /* ViewLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631481E98137700EB7584 /* ViewLog.swift */; };
+		C91B0B751E9C4E5A00623683 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B0B741E9C4E5A00623683 /* CustomCollectionCell.swift */; };
 		E7A30F04026F651800000000 /* NoSQLTableListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29786B1F4E00000000 /* NoSQLTableListViewController.swift */; };
 		E7A30F04089091F900000000 /* NoSQLModelHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29DD71FF8800000000 /* NoSQLModelHelpers.swift */; };
 		E7A30F040BBC1C0F00000000 /* AWSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E2948609E1C00000000 /* AWSConfiguration.swift */; };
@@ -128,6 +129,7 @@
 		ABC631431E9806CF00EB7584 /* CreateLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631461E98136F00EB7584 /* ViewLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631481E98137700EB7584 /* ViewLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLog.swift; sourceTree = SOURCE_ROOT; };
+		C91B0B741E9C4E5A00623683 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 			children = (
 				ABC631461E98136F00EB7584 /* ViewLog.storyboard */,
 				ABC631481E98137700EB7584 /* ViewLog.swift */,
+				C91B0B741E9C4E5A00623683 /* CustomCollectionCell.swift */,
 			);
 			name = ViewLog;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				E7A30F0444BB890800000000 /* Logs.swift in Sources */,
 				E7A30F0449D4FA4600000000 /* UserPoolSignUpConfirmationViewController.swift in Sources */,
 				E7A30F04026F651800000000 /* NoSQLTableListViewController.swift in Sources */,
+				C91B0B751E9C4E5A00623683 /* CustomCollectionCell.swift in Sources */,
 				E7A30F049F990A4500000000 /* NoSQLTableFactory.swift in Sources */,
 				E7A30F04C109829400000000 /* UserPoolMFAViewController.swift in Sources */,
 				E7A30F045A80774200000000 /* AppDelegate.swift in Sources */,
