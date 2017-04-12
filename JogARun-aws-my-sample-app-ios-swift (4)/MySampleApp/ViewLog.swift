@@ -166,7 +166,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.4490622282, green: 0.9530848861, blue: 0.2499501705, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > leapYear && currentMonth == 2){
@@ -175,7 +175,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.4490622282, green: 0.9530848861, blue: 0.2499501705, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > 30 && thirtyDays()){
@@ -184,7 +184,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.4490622282, green: 0.9530848861, blue: 0.2499501705, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > 31){
@@ -193,7 +193,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.4490622282, green: 0.9530848861, blue: 0.2499501705, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
             return cell
         }
         cell.timeLabel.text = "Time:"

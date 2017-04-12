@@ -19,7 +19,7 @@ class Logs: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     var _userId: String?
     var _timestamp: NSNumber?
-    var _date: NSNumber?
+    var _date: String?
     var _distance: NSNumber?
     var _notes: String?
     var _shoe: [String: String]?

@@ -124,7 +124,7 @@ class LogsTable: NSObject, Table {
         
         itemForGet._userId = AWSIdentityManager.default().identityId!
         itemForGet._timestamp = 1111500000
-        itemForGet._date = NoSQLSampleDataGenerator.randomSampleNumber()
+        itemForGet._date = " "
         itemForGet._distance = NoSQLSampleDataGenerator.randomSampleNumber()
         itemForGet._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
         itemForGet._shoe = NoSQLSampleDataGenerator.randomSampleMap()
@@ -149,7 +149,7 @@ class LogsTable: NSObject, Table {
             let item: Logs = Logs()
             item._userId = AWSIdentityManager.default().identityId!
             item._timestamp = NoSQLSampleDataGenerator.randomSampleNumber()
-            item._date = NoSQLSampleDataGenerator.randomSampleNumber()
+            item._date = " "
             item._distance = NoSQLSampleDataGenerator.randomSampleNumber()
             item._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
             item._shoe = NoSQLSampleDataGenerator.randomSampleMap()
@@ -222,7 +222,7 @@ class LogsTable: NSObject, Table {
 
         let itemToUpdate: Logs = item as! Logs
         
-        itemToUpdate._date = NoSQLSampleDataGenerator.randomSampleNumber()
+        itemToUpdate._date = " "
         itemToUpdate._distance = NoSQLSampleDataGenerator.randomSampleNumber()
         itemToUpdate._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
         itemToUpdate._shoe = NoSQLSampleDataGenerator.randomSampleMap()
