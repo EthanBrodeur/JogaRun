@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */; };
+		ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8565F1EA2AA310007B3BB /* UserSearch.swift */; };
 		ABC631421E9806C500EB7584 /* CreateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631411E9806C500EB7584 /* CreateLog.swift */; };
 		ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631431E9806CF00EB7584 /* CreateLog.storyboard */; };
 		ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631461E98136F00EB7584 /* ViewLog.storyboard */; };
@@ -127,6 +129,8 @@
 		1DD70E29EA8530CB00000000 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1DD70E29F7513F7600000000 /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = MySampleApp/Sdk/Aws/AWSDynamoDB.framework; sourceTree = "<group>"; };
 		1DD70E29FEEE234500000000 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserSearch.storyboard; path = MySampleApp/Demo/Teams/UserSearch.storyboard; sourceTree = SOURCE_ROOT; };
+		ABA8565F1EA2AA310007B3BB /* UserSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSearch.swift; path = MySampleApp/Demo/Teams/UserSearch.swift; sourceTree = SOURCE_ROOT; };
 		ABC631411E9806C500EB7584 /* CreateLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLog.swift; sourceTree = SOURCE_ROOT; };
 		ABC631431E9806CF00EB7584 /* CreateLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631461E98136F00EB7584 /* ViewLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewLog.storyboard; sourceTree = SOURCE_ROOT; };
@@ -160,6 +164,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ABA8565C1EA2A8F10007B3BB /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */,
+				ABA8565F1EA2AA310007B3BB /* UserSearch.swift */,
+			);
+			name = Teams;
+			sourceTree = "<group>";
+		};
 		ABC631401E9806B500EB7584 /* CreateLog */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +364,7 @@
 		B401C979E7AE4E6C00000000 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				ABA8565C1EA2A8F10007B3BB /* Teams */,
 				ABC631451E98136100EB7584 /* ViewLog */,
 				1DD70E29B3FD4BAE00000000 /* DemoFeature.swift */,
 				ABC631401E9806B500EB7584 /* CreateLog */,
@@ -419,6 +433,7 @@
 				ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */,
 				E7A30F046DBEC0B700000000 /* SignIn.storyboard in Resources */,
 				ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */,
+				ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */,
 				E7A30F04251A0E1700000000 /* Launch Screen.storyboard in Resources */,
 				E7A30F0478F4F1D900000000 /* Images.xcassets in Resources */,
 				E7A30F049ACF2C0400000000 /* UserIdentity.storyboard in Resources */,
@@ -470,6 +485,7 @@
 				E7A30F04D1F4897C00000000 /* Teams.swift in Sources */,
 				E7A30F044FA9C5D400000000 /* SignInViewController.swift in Sources */,
 				E7A30F0444BB890800000000 /* Logs.swift in Sources */,
+				ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */,
 				E7A30F0449D4FA4600000000 /* UserPoolSignUpConfirmationViewController.swift in Sources */,
 				E7A30F04026F651800000000 /* NoSQLTableListViewController.swift in Sources */,
 				C91B0B751E9C4E5A00623683 /* CustomCollectionCell.swift in Sources */,

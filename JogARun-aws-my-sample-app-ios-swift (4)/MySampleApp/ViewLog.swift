@@ -52,23 +52,26 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         calendar.reloadData()
     }
     
+    func checkLeapYearRules() {
+        if(currentYear%4 == 0){
+            if (currentYear%100 == 0) {
+                leapYear = 29
+            }
+            else if (currentYear%400 == 0){
+                leapYear = 28
+            }
+            else {
+                leapYear = 29
+            }
+        }
+    }
     
     @IBAction func prevMonth(_ sender: UIButton) {
         currentMonth -= 1
         if(currentMonth == 0){
             currentMonth = 12
             currentYear -= 1
-            if(currentYear%4 == 0){
-                if (currentYear%100 == 0) {
-                    leapYear = 29
-                }
-                else if (currentYear%400 == 0){
-                    leapYear = 28
-                }
-                else {
-                    leapYear = 29
-                }
-            }
+            checkLeapYearRules()
         }
         
         refDate = refDate.addingTimeInterval(-2339200)
@@ -86,17 +89,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         if(currentMonth == 13){
             currentMonth = 1
             currentYear += 1
-            if(currentYear%4 == 0){
-                if (currentYear%100 == 0) {
-                    leapYear = 29
-                }
-                else if (currentYear%400 == 0){
-                    leapYear = 28
-                }
-                else {
-                    leapYear = 29
-                }
-            }
+            checkLeapYearRules()
         }
         refDate = refDate.addingTimeInterval(2339200)
         let start = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: refDate)))!

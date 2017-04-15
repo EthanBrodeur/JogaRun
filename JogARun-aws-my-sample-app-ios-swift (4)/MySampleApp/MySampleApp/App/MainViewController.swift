@@ -68,7 +68,7 @@ class MainViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Original value of AWSIdentityManager.default().identityId! = \(AWSIdentityManager.default().identityId!)")
+        //print("Original value of AWSIdentityManager.default().identityId! = \(AWSIdentityManager.default().identityId!)")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
         
