@@ -18,4 +18,5 @@ class CustomCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var milesLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    var number: Int = -1
 }

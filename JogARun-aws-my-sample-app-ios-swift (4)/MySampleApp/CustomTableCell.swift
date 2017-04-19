@@ -19,6 +19,7 @@ class CustomTableCell: UITableViewCell {
     
     @IBOutlet weak var note: UITextView!
     
+    @IBOutlet weak var title: UILabel!
     
     
     

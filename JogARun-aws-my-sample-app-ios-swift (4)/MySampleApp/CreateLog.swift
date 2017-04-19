@@ -65,6 +65,9 @@ class CreateLog:UIViewController {
         print(Double(miles.text!)!)
         
         itemToCreate._userId = AWSIdentityManager.default().identityId!
+        if(date.text?.characters.count == 9){
+            date.text = "0" + date.text!
+        }
         itemToCreate._date = date.text
         itemToCreate._notes = note.text
         itemToCreate._shoe = ["shoe1":"AsicsJ33"]

@@ -23,6 +23,11 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
     var firstDay: Int = 0
     var refDate: Date = Date()
     var leapYear: Int = 28
+    var workoutsArray: [Logs] = []
+    var monthArray: [[Logs]] = []
+    var wait: Bool = true
+    var milesArray: [Double] = Array(repeating: 0, count: 32)
+    var timeArray: [Double] = Array(repeating: 0, count: 32)
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +54,29 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         }
         
         setMonth()
+        loadData()
+        displayData()
+        displayMiles()
         calendar.reloadData()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if (identifier == "ViewSegue" && (sender as! CustomCollectionCell).number == -1)
+        {
+            return false
+        }
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+         if (segue.identifier == "ViewSegue") {
+            let num = (sender as! CustomCollectionCell).number
+            print("CELL NUMBER: " + String(num))
+            let indivView = segue.destination as! ViewIndivLog
+            indivView.dateString = String(currentMonth) + "/" + String(num) + "/" + String(currentYear)
+            indivView.logInfo = monthArray[num]
+        }
+        
     }
     
     func checkLeapYearRules() {
@@ -80,6 +107,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         firstDay = calendarObj.component(.weekday, from: start)
         print(firstDay)
         setMonth()
+        displayData()
+        displayMiles()
         calendar.reloadData()
     }
     
@@ -93,14 +122,22 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         }
         refDate = refDate.addingTimeInterval(2339200)
         let start = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: refDate)))!
-        print(start)
         firstDay = calendarObj.component(.weekday, from: start)
-        print(firstDay)
+        
         setMonth()
+        displayData()
+        displayMiles()
         calendar.reloadData()
     }
     
     func setMonth() {
+        monthArray.removeAll()
+        for _ in 0..<31{
+            let logArray = [Logs]()
+            monthArray.append(logArray)
+        }
+        milesArray = Array(repeating: 0, count: 32)
+        timeArray = Array(repeating: 0, count: 32)
         switch currentMonth{
         case 1:
             month.text = "January " + String(currentYear)
@@ -160,6 +197,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.miles.text = ""
             cell.time.text = ""
             cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.number = -1
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > leapYear && currentMonth == 2){
@@ -169,6 +207,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.miles.text = ""
             cell.time.text = ""
             cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.number = -1
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > 30 && thirtyDays()){
@@ -178,6 +217,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.miles.text = ""
             cell.time.text = ""
             cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.number = -1
             return cell
         }
         if(((indexPath.section)*7+indexPath.row+1) - firstDay+1 > 31){
@@ -187,22 +227,34 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.miles.text = ""
             cell.time.text = ""
             cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.number = -1
             return cell
         }
-        cell.timeLabel.text = "Time:"
-        cell.milesLabel.text = "Miles:"
-        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        cell.label.text = String(((indexPath.section)*7+indexPath.row+1) - firstDay+1)
-        cell.miles.text = String(((indexPath.section)*7+indexPath.row+1) - firstDay+1)
-        cell.time.text = String(((indexPath.section)*7+indexPath.row+1) - firstDay+1)
-        
-        
+        cell.number = (((indexPath.section)*7+indexPath.row+1) - firstDay+1)
+        let miles = milesArray[(((indexPath.section)*7+indexPath.row+1) - firstDay+1)]
+        let time = timeArray[(((indexPath.section)*7+indexPath.row+1) - firstDay+1)]
+        if (miles == 0 && time == 0){
+            cell.label.text = String(((indexPath.section)*7+indexPath.row+1) - firstDay+1)
+
+            cell.timeLabel.text = ""
+            cell.milesLabel.text = ""
+            cell.miles.text = ""
+            cell.time.text = ""
+            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        }
+        else{
+            cell.timeLabel.text = "Time:"
+            cell.milesLabel.text = "Miles:"
+            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            cell.label.text = String(((indexPath.section)*7+indexPath.row+1) - firstDay+1)
+            cell.miles.text = String(milesArray[(((indexPath.section)*7+indexPath.row+1) - firstDay+1)])
+            cell.time.text = String(timeArray[(((indexPath.section)*7+indexPath.row+1) - firstDay+1)])
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView:UICollectionView, didSelectItemAt indexPath: IndexPath){
-        
         let cellTouched = indexPath.section + indexPath.row
         print(cellTouched)
     }
@@ -212,24 +264,89 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
     }
     
     func loadData() {
+        workoutsArray.removeAll()
         let objectMapper = AWSDynamoDBObjectMapper.default()
                 
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "#userId = :userId"
         queryExpression.expressionAttributeNames = ["#userId": "userId",]
         queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
-        
+        wait = true
         objectMapper.query(Logs.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
             if let error = task.error as? NSError {
                 print("The request failed. Error: \(error)")
             } else if let paginatedOutput = task.result {
                 for log in paginatedOutput.items as! [Logs] {
-                    
+                    self.workoutsArray.append(log)
                     print(log)
                 }
+                
+                self.wait = false
             }
             return nil
         })
+        
+    }
+    
+    func displayData() {
+        
+        while(wait){
+            
+        }
+        wait = false
+        for log in workoutsArray {
+            print("HEYYYYYYYY\n")
+            print(log)
+            if(log._date == nil){
+                continue
+            }
+            var index = log._date?.index((log._date?.startIndex)!, offsetBy: 6)
+            if(log._date?.characters.count == 8){
+                print("CHARACTERS?????? " + log._date!)
+                index = log._date?.index((log._date?.startIndex)!, offsetBy: 4)
+            }
+            let workoutYear = Int((log._date?.substring(from: index!))!)
+            print("WORKOUT YEAR: " + String(describing: workoutYear))
+            if workoutYear != currentYear{
+                continue
+            }
+            index = log._date?.index((log._date?.startIndex)!, offsetBy: 2)
+            let workoutMonth = Int((log._date?.substring(to: index!))!)
+            if workoutMonth != currentMonth{
+                continue
+            }
+            print("LOG DATE " + log._date!)
+            index = log._date?.index((log._date?.startIndex)!, offsetBy: 3)
+            var indexEnd = log._date?.index((log._date?.endIndex)!, offsetBy: -5)
+            if(log._date?.characters.count == 8){
+                indexEnd = log._date?.index((log._date?.endIndex)!, offsetBy: -6)
+            }
+            let range = index!..<indexEnd!
+            let workoutDay = Int((log._date?.substring(with: range))!)
+            print("WORKOUT DAY: " + String(describing: workoutDay))
+            monthArray[workoutDay!].append(log)
+            
+            
+        }
+        print(monthArray)
+    }
+    
+    func displayMiles() {
+        var i = 0
+        for log in monthArray{
+            if log.isEmpty{
+                i += 1
+                continue
+            }
+            for l in log{
+                let dist = Double(l._distance!)
+                let time = Double(l._time!)
+                milesArray[i] += dist
+                timeArray[i] += time
+            }
+            i += 1
+        }
+        
     }
     
     
