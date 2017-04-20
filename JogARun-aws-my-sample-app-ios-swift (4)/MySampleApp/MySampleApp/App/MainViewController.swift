@@ -15,8 +15,7 @@ import UIKit
 import AWSMobileHubHelper
 
 class MainViewController: UITableViewController {
-    var nonLoggedID:String = ""
-    var logged = false
+
     var demoFeatures: [DemoFeature] = []
     var signInObserver: AnyObject!
     var signOutObserver: AnyObject!
@@ -26,7 +25,8 @@ class MainViewController: UITableViewController {
     
     func checkLogAndUpdate() {
         demoFeatures = []
-        if logged {
+
+        if !(AWSIdentityManager.default().isLoggedIn) {
             let demoFeature = DemoFeature.init(
                 name: NSLocalizedString("Search",
                                         comment: "Label for demo menu option."),
@@ -55,6 +55,15 @@ class MainViewController: UITableViewController {
             demoFeatures.append(demoFeature)
             
             demoFeature = DemoFeature.init(
+                name: NSLocalizedString("Manage Teams",
+                                        comment: "Label for demo menu option."),
+                detail: NSLocalizedString("Create and view Team Pages",
+                                          comment: "Description for demo menu option."),
+                icon: "NoSQLIcon", storyboard: "TeamEntry")
+            
+            demoFeatures.append(demoFeature)
+            
+            demoFeature = DemoFeature.init(
                 name: NSLocalizedString("Search",
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Search for Another User",
@@ -68,7 +77,7 @@ class MainViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("Original value of AWSIdentityManager.default().identityId! = \(AWSIdentityManager.default().identityId!)")
+
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
         
@@ -82,33 +91,22 @@ class MainViewController: UITableViewController {
         signInObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AWSIdentityManagerDidSignIn, object: AWSIdentityManager.default(), queue: OperationQueue.main, using: {[weak self] (note: Notification) -> Void in
             guard let strongSelf = self else { return }
             print("Sign In Observer observed sign in.")
-            //self.logged = true
+            
             strongSelf.setupRightBarButtonItem()
         })
         
         signOutObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AWSIdentityManagerDidSignOut, object: AWSIdentityManager.default(), queue: OperationQueue.main, using: {[weak self](note: Notification) -> Void in
             guard let strongSelf = self else { return }
-            self?.nonLoggedID = AWSIdentityManager.default().identityId!
-           // self.logged = false
+
             print("Sign Out Observer observed sign out.")
             strongSelf.setupRightBarButtonItem()
         })
-        
-        //will be nil if first time using the app
-//        if let realID = AWSIdentityManager.default().identityId! {
-//            nonLoggedID = AWSIdentityManager.default().identityId!
-//        }
         
         setupRightBarButtonItem()
         checkLogAndUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //if we came back from sign in, AWSIdentityManager.default().identityId! will have changed
-//        if nonLoggedID != AWSIdentityManager.default().identityId! {
-//            logged = true //id changed from viewDidLoad so they logged in
-//        }
-        
         checkLogAndUpdate()
     }
     
@@ -168,6 +166,7 @@ class MainViewController: UITableViewController {
             AWSIdentityManager.default().logout(completionHandler: {(result: Any?, error: Error?) in
                 self.navigationController!.popToRootViewController(animated: false)
                 self.setupRightBarButtonItem()
+                self.checkLogAndUpdate()
             })
             
         } else {

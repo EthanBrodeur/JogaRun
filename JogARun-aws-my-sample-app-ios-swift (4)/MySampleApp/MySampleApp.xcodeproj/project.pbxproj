@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		681D87051EA8FDC200103A8B /* TeamEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681D87041EA8FDC200103A8B /* TeamEntryVC.swift */; };
+		681D87071EA8FDD800103A8B /* TeamEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681D87061EA8FDD800103A8B /* TeamEntry.storyboard */; };
+		681D870F1EA90D1000103A8B /* MakeTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681D870E1EA90D1000103A8B /* MakeTeam.swift */; };
+		681D87111EA90D1B00103A8B /* MakeTeam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681D87101EA90D1B00103A8B /* MakeTeam.storyboard */; };
 		ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */; };
 		ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8565F1EA2AA310007B3BB /* UserSearch.swift */; };
 		ABC631421E9806C500EB7584 /* CreateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631411E9806C500EB7584 /* CreateLog.swift */; };
@@ -129,6 +133,10 @@
 		1DD70E29EA8530CB00000000 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1DD70E29F7513F7600000000 /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = MySampleApp/Sdk/Aws/AWSDynamoDB.framework; sourceTree = "<group>"; };
 		1DD70E29FEEE234500000000 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		681D87041EA8FDC200103A8B /* TeamEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamEntryVC.swift; sourceTree = SOURCE_ROOT; };
+		681D87061EA8FDD800103A8B /* TeamEntry.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamEntry.storyboard; sourceTree = SOURCE_ROOT; };
+		681D870E1EA90D1000103A8B /* MakeTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeTeam.swift; sourceTree = SOURCE_ROOT; };
+		681D87101EA90D1B00103A8B /* MakeTeam.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MakeTeam.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserSearch.storyboard; path = MySampleApp/Demo/Teams/UserSearch.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565F1EA2AA310007B3BB /* UserSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSearch.swift; path = MySampleApp/Demo/Teams/UserSearch.swift; sourceTree = SOURCE_ROOT; };
 		ABC631411E9806C500EB7584 /* CreateLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLog.swift; sourceTree = SOURCE_ROOT; };
@@ -164,13 +172,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		ABA8565C1EA2A8F10007B3BB /* Teams */ = {
+		681D87031EA8FD9700103A8B /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				681D87041EA8FDC200103A8B /* TeamEntryVC.swift */,
+				681D87061EA8FDD800103A8B /* TeamEntry.storyboard */,
+				681D870E1EA90D1000103A8B /* MakeTeam.swift */,
+				681D87101EA90D1B00103A8B /* MakeTeam.storyboard */,
+			);
+			name = Teams;
+			sourceTree = "<group>";
+		};
+		ABA8565C1EA2A8F10007B3BB /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */,
 				ABA8565F1EA2AA310007B3BB /* UserSearch.swift */,
 			);
-			name = Teams;
+			name = Search;
 			sourceTree = "<group>";
 		};
 		ABC631401E9806B500EB7584 /* CreateLog */ = {
@@ -364,7 +383,8 @@
 		B401C979E7AE4E6C00000000 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				ABA8565C1EA2A8F10007B3BB /* Teams */,
+				681D87031EA8FD9700103A8B /* Teams */,
+				ABA8565C1EA2A8F10007B3BB /* Search */,
 				ABC631451E98136100EB7584 /* ViewLog */,
 				1DD70E29B3FD4BAE00000000 /* DemoFeature.swift */,
 				ABC631401E9806B500EB7584 /* CreateLog */,
@@ -431,7 +451,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */,
+				681D87071EA8FDD800103A8B /* TeamEntry.storyboard in Resources */,
 				E7A30F046DBEC0B700000000 /* SignIn.storyboard in Resources */,
+				681D87111EA90D1B00103A8B /* MakeTeam.storyboard in Resources */,
 				ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */,
 				ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */,
 				E7A30F04251A0E1700000000 /* Launch Screen.storyboard in Resources */,
@@ -493,6 +515,7 @@
 				E7A30F04C109829400000000 /* UserPoolMFAViewController.swift in Sources */,
 				E7A30F045A80774200000000 /* AppDelegate.swift in Sources */,
 				E7A30F0463F3EFD900000000 /* UserPoolForgotPasswordViewController.swift in Sources */,
+				681D870F1EA90D1000103A8B /* MakeTeam.swift in Sources */,
 				C9759DA01E9D21F200BCE08F /* ViewIndivLog.swift in Sources */,
 				E7A30F04541C916600000000 /* DemoFeature.swift in Sources */,
 				E7A30F040BBC1C0F00000000 /* AWSConfiguration.swift in Sources */,
@@ -504,6 +527,7 @@
 				E7A30F049515BB9800000000 /* MainViewController.swift in Sources */,
 				E7A30F04089091F900000000 /* NoSQLModelHelpers.swift in Sources */,
 				E7A30F04646629E500000000 /* LogsTable.swift in Sources */,
+				681D87051EA8FDC200103A8B /* TeamEntryVC.swift in Sources */,
 				E7A30F040DB3317200000000 /* UserIdentityViewController.swift in Sources */,
 				ABC631491E98137700EB7584 /* ViewLog.swift in Sources */,
 				E7A30F042B6BC34600000000 /* AWSMobileClient.swift in Sources */,
