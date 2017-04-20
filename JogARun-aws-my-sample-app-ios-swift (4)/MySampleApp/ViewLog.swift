@@ -29,16 +29,18 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
     var milesArray: [Double] = Array(repeating: 0, count: 32)
     var timeArray: [Double] = Array(repeating: 0, count: 32)
     
+    override func viewDidLoad(){
+        currentMonth = calendarObj.component(.month, from: Date())
+        currentYear = calendarObj.component(.year, from: refDate)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         calendar.dataSource = self
         calendar.delegate = self
-        currentMonth = calendarObj.component(.month, from: Date())
-        currentYear = calendarObj.component(.year, from: refDate)
-        let start = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: refDate)))!
-        print(start)
+        
+        let dC: DateComponents = DateComponents(year: currentYear,month: currentMonth)
+        let start = Calendar.current.date(from: dC)!
         firstDay = calendarObj.component(.weekday, from: start)
-        print(firstDay)
         
         //Stupid February leap year rules
         if(currentYear%4 == 0){
@@ -74,7 +76,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             print("CELL NUMBER: " + String(num))
             let indivView = segue.destination as! ViewIndivLog
             indivView.dateString = String(currentMonth) + "/" + String(num) + "/" + String(currentYear)
-            indivView.logInfo = monthArray[num]
+            indivView.logInfo.logStuff = monthArray[num]
         }
         
     }
@@ -301,9 +303,9 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
                 continue
             }
             var index = log._date?.index((log._date?.startIndex)!, offsetBy: 6)
-            if(log._date?.characters.count == 8){
+            if(log._date?.characters.count == 9){
                 print("CHARACTERS?????? " + log._date!)
-                index = log._date?.index((log._date?.startIndex)!, offsetBy: 4)
+                index = log._date?.index((log._date?.startIndex)!, offsetBy: 5)
             }
             let workoutYear = Int((log._date?.substring(from: index!))!)
             print("WORKOUT YEAR: " + String(describing: workoutYear))
@@ -317,10 +319,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             }
             print("LOG DATE " + log._date!)
             index = log._date?.index((log._date?.startIndex)!, offsetBy: 3)
-            var indexEnd = log._date?.index((log._date?.endIndex)!, offsetBy: -5)
-            if(log._date?.characters.count == 8){
-                indexEnd = log._date?.index((log._date?.endIndex)!, offsetBy: -6)
-            }
+            let indexEnd = log._date?.index((log._date?.endIndex)!, offsetBy: -5)
+            
             let range = index!..<indexEnd!
             let workoutDay = Int((log._date?.substring(with: range))!)
             print("WORKOUT DAY: " + String(describing: workoutDay))
