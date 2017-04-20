@@ -89,6 +89,9 @@ class CreateLog:UIViewController, UINavigationControllerDelegate {
         itemToCreate._time = NSNumber(value:Double((time.text?.replacingOccurrences(of: ":", with: "."))!)!)
         itemToCreate._timestamp = NSNumber(value: Date().timeIntervalSince1970)
         itemToCreate._title = titleField.text
+        if(itemToCreate._title == ""){
+            itemToCreate._title = " "
+        }
         objectMapper.save(itemToCreate, completionHandler: {(error: Error?) -> Void in
             if let error = error {
                 print("Amazon DynamoDB Save Error: \(error)")
