@@ -119,7 +119,7 @@ class TeamsTable: NSObject, Table {
         let itemForGet: Teams! = Teams()
         
         itemForGet._userId = AWSIdentityManager.default().identityId!
-        itemForGet._teams = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
+        itemForGet._team = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
         
         
         group.enter()
@@ -138,7 +138,7 @@ class TeamsTable: NSObject, Table {
 
             let item: Teams = Teams()
             item._userId = AWSIdentityManager.default().identityId!
-            item._teams = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
+            item._team = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
             
             group.enter()
             
@@ -206,7 +206,7 @@ class TeamsTable: NSObject, Table {
 
         let itemToUpdate: Teams = item as! Teams
         
-        itemToUpdate._teams = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
+        itemToUpdate._team = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("teams")
         
         objectMapper.save(itemToUpdate, completionHandler: {(error: Error?) in
             DispatchQueue.main.async(execute: {

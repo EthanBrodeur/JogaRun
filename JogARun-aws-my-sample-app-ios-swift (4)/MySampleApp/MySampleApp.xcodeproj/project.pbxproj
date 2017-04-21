@@ -11,6 +11,8 @@
 		681D87071EA8FDD800103A8B /* TeamEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681D87061EA8FDD800103A8B /* TeamEntry.storyboard */; };
 		681D870F1EA90D1000103A8B /* MakeTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681D870E1EA90D1000103A8B /* MakeTeam.swift */; };
 		681D87111EA90D1B00103A8B /* MakeTeam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681D87101EA90D1B00103A8B /* MakeTeam.storyboard */; };
+		AB1A20E81EAAA48100F72BC7 /* ViewTeam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1A20E71EAAA48100F72BC7 /* ViewTeam.storyboard */; };
+		AB1A20EA1EAAA4C200F72BC7 /* ViewTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1A20E91EAAA4C200F72BC7 /* ViewTeam.swift */; };
 		ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */; };
 		ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8565F1EA2AA310007B3BB /* UserSearch.swift */; };
 		ABB5D8E11EA91E0D00B6276B /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB5D8E01EA91E0D00B6276B /* Users.swift */; };
@@ -143,6 +145,8 @@
 		681D87061EA8FDD800103A8B /* TeamEntry.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamEntry.storyboard; sourceTree = SOURCE_ROOT; };
 		681D870E1EA90D1000103A8B /* MakeTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeTeam.swift; sourceTree = SOURCE_ROOT; };
 		681D87101EA90D1B00103A8B /* MakeTeam.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MakeTeam.storyboard; sourceTree = SOURCE_ROOT; };
+		AB1A20E71EAAA48100F72BC7 /* ViewTeam.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ViewTeam.storyboard; path = MySampleApp/Demo/Teams/ViewTeam.storyboard; sourceTree = SOURCE_ROOT; };
+		AB1A20E91EAAA4C200F72BC7 /* ViewTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewTeam.swift; path = MySampleApp/Demo/Teams/ViewTeam.swift; sourceTree = SOURCE_ROOT; };
 		ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserSearch.storyboard; path = MySampleApp/Demo/Teams/UserSearch.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565F1EA2AA310007B3BB /* UserSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSearch.swift; path = MySampleApp/Demo/Teams/UserSearch.swift; sourceTree = SOURCE_ROOT; };
 		ABB5D8E01EA91E0D00B6276B /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = MySampleApp/AmazonAws/Models/NoSQL/Users.swift; sourceTree = SOURCE_ROOT; };
@@ -191,6 +195,8 @@
 				681D87061EA8FDD800103A8B /* TeamEntry.storyboard */,
 				681D870E1EA90D1000103A8B /* MakeTeam.swift */,
 				681D87101EA90D1B00103A8B /* MakeTeam.storyboard */,
+				AB1A20E91EAAA4C200F72BC7 /* ViewTeam.swift */,
+				AB1A20E71EAAA48100F72BC7 /* ViewTeam.storyboard */,
 			);
 			name = Teams;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 				ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */,
 				E7A30F04251A0E1700000000 /* Launch Screen.storyboard in Resources */,
 				C9683C721EAA815500B3E5AE /* TeamView.storyboard in Resources */,
+				AB1A20E81EAAA48100F72BC7 /* ViewTeam.storyboard in Resources */,
 				E7A30F0478F4F1D900000000 /* Images.xcassets in Resources */,
 				E7A30F049ACF2C0400000000 /* UserIdentity.storyboard in Resources */,
 				E7A30F04A016E1D600000000 /* NoSQLDatabase.storyboard in Resources */,
@@ -533,6 +540,7 @@
 				E7A30F04F5D8BB5800000000 /* UserPoolNewPasswordViewController.swift in Sources */,
 				E7A30F04D1F4897C00000000 /* Teams.swift in Sources */,
 				E7A30F044FA9C5D400000000 /* SignInViewController.swift in Sources */,
+				AB1A20EA1EAAA4C200F72BC7 /* ViewTeam.swift in Sources */,
 				E7A30F0444BB890800000000 /* Logs.swift in Sources */,
 				ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */,
 				E7A30F0449D4FA4600000000 /* UserPoolSignUpConfirmationViewController.swift in Sources */,

@@ -52,7 +52,6 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let myCell = UITableViewCell(style: .default, reuseIdentifier: nil)
         myCell.textLabel?.text = myUsers[indexPath.row]._username
         return myCell

@@ -39,20 +39,15 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     override func viewDidAppear(_ animated: Bool) {
         dbQuery()
-        teamList.reloadData()
-        if teams.count > 0 {
-            noTeamsEnteredLabel.text = ""
-        }
-        else {
-            noTeamsEnteredLabel.text = "You have no teams yet!"
-        }
     }
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //dateLabel.text = logInfo[indexPath.row]._date!
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+
+//        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text =  String(describing: teams[indexPath.row]._teams!)
+        cell.textLabel?.text =  String(describing: teams[indexPath.row]._team!)
 
         return cell
     }
@@ -63,26 +58,35 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        print(teams[indexPath.row])
+        
+        
     }
 
     func dbQuery() {
         teams.removeAll()
         let objectMapper = AWSDynamoDBObjectMapper.default()
-        let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.keyConditionExpression = "#userId = :userId"
-        queryExpression.expressionAttributeNames = ["#userId": "userId",]
-        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
+        let scanExpression = AWSDynamoDBScanExpression()
+        scanExpression.filterExpression = "#userId = :userId"
+        scanExpression.expressionAttributeNames = ["#userId": "userId",]
+        scanExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
         wait = true
-        objectMapper.query(Teams.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
+        objectMapper.scan(Teams.self, expression: scanExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
             if let error = task.error as? NSError {
                 print("The request failed. Error: \(error)")
             } else if let paginatedOutput = task.result {
                 for team in paginatedOutput.items as! [Teams] {
                     self.teams.append(team)
-                    print(team)
+                    DispatchQueue.main.async {
+                        self.teamList.reloadData()
+                        if self.teams.count > 0 {
+                            self.noTeamsEnteredLabel.text = ""
+                        }
+                        else {
+                            self.noTeamsEnteredLabel.text = "You have no teams yet!"
+                        }
+                    }
                 }
-                
                 self.wait = false
             }
             return nil
