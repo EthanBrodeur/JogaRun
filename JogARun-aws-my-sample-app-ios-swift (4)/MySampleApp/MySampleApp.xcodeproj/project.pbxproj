@@ -19,6 +19,11 @@
 		ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631461E98136F00EB7584 /* ViewLog.storyboard */; };
 		ABC631491E98137700EB7584 /* ViewLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631481E98137700EB7584 /* ViewLog.swift */; };
 		C91B0B751E9C4E5A00623683 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B0B741E9C4E5A00623683 /* CustomCollectionCell.swift */; };
+		C9683C721EAA815500B3E5AE /* TeamView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9683C6D1EAA815500B3E5AE /* TeamView.storyboard */; };
+		C9683C731EAA815500B3E5AE /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9683C6E1EAA815500B3E5AE /* TeamView.swift */; };
+		C9683C741EAA815500B3E5AE /* TeamIndivView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9683C6F1EAA815500B3E5AE /* TeamIndivView.swift */; };
+		C9683C751EAA815500B3E5AE /* TeamTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9683C701EAA815500B3E5AE /* TeamTableCell.swift */; };
+		C9683C761EAA815500B3E5AE /* TeamIndivTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9683C711EAA815500B3E5AE /* TeamIndivTableCell.swift */; };
 		C9759D9C1E9D1B9700BCE08F /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9759D9B1E9D1B9700BCE08F /* CustomTableCell.swift */; };
 		C9759DA01E9D21F200BCE08F /* ViewIndivLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9759D9F1E9D21F200BCE08F /* ViewIndivLog.swift */; };
 		E7A30F04026F651800000000 /* NoSQLTableListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD70E29786B1F4E00000000 /* NoSQLTableListViewController.swift */; };
@@ -146,6 +151,11 @@
 		ABC631461E98136F00EB7584 /* ViewLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631481E98137700EB7584 /* ViewLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLog.swift; sourceTree = SOURCE_ROOT; };
 		C91B0B741E9C4E5A00623683 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = SOURCE_ROOT; };
+		C9683C6D1EAA815500B3E5AE /* TeamView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TeamView.storyboard; sourceTree = SOURCE_ROOT; };
+		C9683C6E1EAA815500B3E5AE /* TeamView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = SOURCE_ROOT; };
+		C9683C6F1EAA815500B3E5AE /* TeamIndivView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamIndivView.swift; sourceTree = SOURCE_ROOT; };
+		C9683C701EAA815500B3E5AE /* TeamTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamTableCell.swift; sourceTree = SOURCE_ROOT; };
+		C9683C711EAA815500B3E5AE /* TeamIndivTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamIndivTableCell.swift; sourceTree = SOURCE_ROOT; };
 		C9759D9B1E9D1B9700BCE08F /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = SOURCE_ROOT; };
 		C9759D9F1E9D21F200BCE08F /* ViewIndivLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewIndivLog.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -386,6 +396,7 @@
 		B401C979E7AE4E6C00000000 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				C9683C6C1EAA814400B3E5AE /* TeamView */,
 				681D87031EA8FD9700103A8B /* Teams */,
 				ABA8565C1EA2A8F10007B3BB /* Search */,
 				ABC631451E98136100EB7584 /* ViewLog */,
@@ -396,6 +407,18 @@
 			);
 			name = Demo;
 			path = mysampleapp/demo;
+			sourceTree = "<group>";
+		};
+		C9683C6C1EAA814400B3E5AE /* TeamView */ = {
+			isa = PBXGroup;
+			children = (
+				C9683C6D1EAA815500B3E5AE /* TeamView.storyboard */,
+				C9683C6E1EAA815500B3E5AE /* TeamView.swift */,
+				C9683C6F1EAA815500B3E5AE /* TeamIndivView.swift */,
+				C9683C701EAA815500B3E5AE /* TeamTableCell.swift */,
+				C9683C711EAA815500B3E5AE /* TeamIndivTableCell.swift */,
+			);
+			name = TeamView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +483,7 @@
 				ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */,
 				ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */,
 				E7A30F04251A0E1700000000 /* Launch Screen.storyboard in Resources */,
+				C9683C721EAA815500B3E5AE /* TeamView.storyboard in Resources */,
 				E7A30F0478F4F1D900000000 /* Images.xcassets in Resources */,
 				E7A30F049ACF2C0400000000 /* UserIdentity.storyboard in Resources */,
 				E7A30F04A016E1D600000000 /* NoSQLDatabase.storyboard in Resources */,
@@ -517,13 +541,16 @@
 				E7A30F049F990A4500000000 /* NoSQLTableFactory.swift in Sources */,
 				E7A30F04C109829400000000 /* UserPoolMFAViewController.swift in Sources */,
 				E7A30F045A80774200000000 /* AppDelegate.swift in Sources */,
+				C9683C751EAA815500B3E5AE /* TeamTableCell.swift in Sources */,
 				E7A30F0463F3EFD900000000 /* UserPoolForgotPasswordViewController.swift in Sources */,
 				681D870F1EA90D1000103A8B /* MakeTeam.swift in Sources */,
 				C9759DA01E9D21F200BCE08F /* ViewIndivLog.swift in Sources */,
 				E7A30F04541C916600000000 /* DemoFeature.swift in Sources */,
 				E7A30F040BBC1C0F00000000 /* AWSConfiguration.swift in Sources */,
+				C9683C761EAA815500B3E5AE /* TeamIndivTableCell.swift in Sources */,
 				E7A30F04A2463A6900000000 /* SignInViewControllerExtensions.swift in Sources */,
 				E7A30F0448E3DEBF00000000 /* NoSQLSampleDataGenerator.swift in Sources */,
+				C9683C741EAA815500B3E5AE /* TeamIndivView.swift in Sources */,
 				ABC631421E9806C500EB7584 /* CreateLog.swift in Sources */,
 				E7A30F042CF9AE4000000000 /* UtilityFunctions.swift in Sources */,
 				E7A30F045E7887E800000000 /* NoSQLTableViewController.swift in Sources */,
@@ -537,6 +564,7 @@
 				E7A30F04A183F0FA00000000 /* TeamsTable.swift in Sources */,
 				ABB5D8E11EA91E0D00B6276B /* Users.swift in Sources */,
 				C9759D9C1E9D1B9700BCE08F /* CustomTableCell.swift in Sources */,
+				C9683C731EAA815500B3E5AE /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

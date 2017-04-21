@@ -64,6 +64,14 @@ class MainViewController: UITableViewController {
             demoFeatures.append(demoFeature)
             
             demoFeature = DemoFeature.init(
+                name: NSLocalizedString("Teams",
+                                        comment: "Label for demo menu option."),
+                detail: NSLocalizedString("View your teams",
+                                          comment: "Description for demo menu option."),
+                icon: "UserIdentityIcon", storyboard: "TeamView")
+            demoFeatures.append(demoFeature)
+            
+            demoFeature = DemoFeature.init(
                 name: NSLocalizedString("Search",
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Search for Another User",
