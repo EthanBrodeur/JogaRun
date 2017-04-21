@@ -19,8 +19,6 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     
     var myUsers = [Users]()
     
-    let myArray = ["Owen", "Matt", "Ethan"]
-    
     func getUsers() {
         
         let searchText = searchBar.text
@@ -40,39 +38,26 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
                 print("The request failed. Error: \(error)")
                 self.myUsers = [Users]()
             } else if let paginatedOutput = task.result {
-                print("Request worked")
-                for user in paginatedOutput.items as! [Users] {
-                    print(user)
-                }
-                print("Printed users")
                 self.myUsers = paginatedOutput.items as! [Users]
-                self.theTable.reloadData()
+                DispatchQueue.main.async {
+                    self.theTable.reloadData()
+                }
             }
             return nil
         })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count
-        
+        return myUsers.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        if (indexPath.row < myUsers.count) {
-            myCell.textLabel?.text = myUsers[indexPath.row]._username
-//            myCell.imageView?.image = UIImage.init(named: "washu")
-        } else {
-            print(indexPath.row)
-            print(myUsers.count)
-            print(myUsers)
-        }
+        myCell.textLabel?.text = myUsers[indexPath.row]._username
         return myCell
         
     }
-    
-    
-    
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +67,6 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         getUsers()
-        print("USERS: \(myUsers)")
-//        self.theTable.reloadData()
-//        print(users)
     }
     
 }
