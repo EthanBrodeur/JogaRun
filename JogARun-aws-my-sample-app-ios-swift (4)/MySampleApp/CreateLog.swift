@@ -11,7 +11,7 @@ import Foundation
 import AWSMobileHubHelper
 import AWSDynamoDB
 
-class CreateLog:UIViewController {
+class CreateLog:UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var date: UITextField!
@@ -20,6 +20,20 @@ class CreateLog:UIViewController {
     @IBOutlet weak var pace: UILabel!
     @IBOutlet weak var shoe: UITextField!
     @IBOutlet weak var note: UITextView!
+    var logInfo: [Logs] = []
+    var add: Bool = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.delegate = self
+    }
+    
+        func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+            if(add){
+                (viewController as? ViewIndivLog)?.logInfo.logStuff = logInfo // Here you pass the to your original view controller
+            }
+        }
     
     
     @IBAction func submit(_ sender: UIButton) {
@@ -65,7 +79,7 @@ class CreateLog:UIViewController {
         print(Double(miles.text!)!)
         
         itemToCreate._userId = AWSIdentityManager.default().identityId!
-        if(date.text?.characters.count == 9){
+        if(date.text?.characters.count == 9 || date.text?.characters.count == 8){
             date.text = "0" + date.text!
         }
         itemToCreate._date = date.text
@@ -75,6 +89,9 @@ class CreateLog:UIViewController {
         itemToCreate._time = NSNumber(value:Double((time.text?.replacingOccurrences(of: ":", with: "."))!)!)
         itemToCreate._timestamp = NSNumber(value: Date().timeIntervalSince1970)
         itemToCreate._title = titleField.text
+        if(itemToCreate._title == ""){
+            itemToCreate._title = " "
+        }
         objectMapper.save(itemToCreate, completionHandler: {(error: Error?) -> Void in
             if let error = error {
                 print("Amazon DynamoDB Save Error: \(error)")
@@ -82,5 +99,45 @@ class CreateLog:UIViewController {
             }
             print("Item saved.")
         })
+        logInfo.append(itemToCreate)
+        print(logInfo)
+    }
+    
+    @IBAction func milesChanged(_ sender: UITextField) {
+        calculatePace()
+    }
+    
+    @IBAction func timeChanged(_ sender: UITextField) {
+        calculatePace()
+    }
+    
+    
+    func calculatePace() {
+        let times = Double((self.time.text?.replacingOccurrences(of: ":", with: "."))!)
+        let dist = Double(miles.text!)
+        if times == nil || dist == nil{
+            return
+        }
+       
+        
+        var sec = times! - Double(Int(times!))
+        print(sec)
+        sec = (times!-sec)*60 + sec*100
+        
+        print(sec)
+        sec = sec/dist!
+        print(sec)
+        sec = sec/60
+        print(sec)
+        var ans = sec - Double(Int(sec))
+        ans = sec-ans + ans*60/100
+        
+        ans = round(100*ans)/100
+        var ansString = String(ans).replacingOccurrences(of: ".", with: ":")
+        if ansString.characters.count == 3{
+            ansString += "0"
+        }
+        pace.text = ansString
+        
     }
 }
