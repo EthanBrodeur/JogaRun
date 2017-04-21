@@ -16,6 +16,7 @@ import Foundation
 import UIKit
 import AWSMobileHubHelper
 import AWSCognitoIdentityProvider
+import AWSDynamoDB
 
 class UserPoolSignUpViewController: UIViewController {
     
@@ -38,6 +39,22 @@ class UserPoolSignUpViewController: UIViewController {
             signUpConfirmationViewController.sentTo = self.sentTo
             signUpConfirmationViewController.user = self.pool?.getUser(self.userName.text!)
         }
+    }
+    
+    func insertIntoUsersTable() {
+            let objectMapper = AWSDynamoDBObjectMapper.default()
+            
+            let itemToCreate: Users = Users()
+        
+            itemToCreate._userId = AWSIdentityManager.default().identityId!
+            itemToCreate._username = userName.text
+            objectMapper.save(itemToCreate, completionHandler: {(error: Error?) -> Void in
+                if let error = error {
+                    print("Amazon DynamoDB Save Error: \(error)")
+                    return
+                }
+                print("User saved.")
+            })
     }
     
     @IBAction func onSignUp(_ sender: AnyObject) {
@@ -84,7 +101,9 @@ class UserPoolSignUpViewController: UIViewController {
                     if (result.user.confirmedStatus != AWSCognitoIdentityUserStatus.confirmed) {
                         strongSelf.sentTo = result.codeDeliveryDetails?.destination
                         strongSelf.performSegue(withIdentifier: "SignUpConfirmSegue", sender:sender)
+                        self?.insertIntoUsersTable()
                     } else {
+                        self?.insertIntoUsersTable()
                         UIAlertView(title: "Registration Complete",
                             message: "Registration was successful.",
                             delegate: nil,

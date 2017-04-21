@@ -13,6 +13,7 @@
 		681D87111EA90D1B00103A8B /* MakeTeam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 681D87101EA90D1B00103A8B /* MakeTeam.storyboard */; };
 		ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */; };
 		ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8565F1EA2AA310007B3BB /* UserSearch.swift */; };
+		ABB5D8E11EA91E0D00B6276B /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB5D8E01EA91E0D00B6276B /* Users.swift */; };
 		ABC631421E9806C500EB7584 /* CreateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631411E9806C500EB7584 /* CreateLog.swift */; };
 		ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631431E9806CF00EB7584 /* CreateLog.storyboard */; };
 		ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631461E98136F00EB7584 /* ViewLog.storyboard */; };
@@ -139,6 +140,7 @@
 		681D87101EA90D1B00103A8B /* MakeTeam.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MakeTeam.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserSearch.storyboard; path = MySampleApp/Demo/Teams/UserSearch.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565F1EA2AA310007B3BB /* UserSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSearch.swift; path = MySampleApp/Demo/Teams/UserSearch.swift; sourceTree = SOURCE_ROOT; };
+		ABB5D8E01EA91E0D00B6276B /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = MySampleApp/AmazonAws/Models/NoSQL/Users.swift; sourceTree = SOURCE_ROOT; };
 		ABC631411E9806C500EB7584 /* CreateLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLog.swift; sourceTree = SOURCE_ROOT; };
 		ABC631431E9806CF00EB7584 /* CreateLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631461E98136F00EB7584 /* ViewLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewLog.storyboard; sourceTree = SOURCE_ROOT; };
@@ -375,6 +377,7 @@
 			children = (
 				1DD70E29DBDA723700000000 /* Logs.swift */,
 				1DD70E29A822000700000000 /* Teams.swift */,
+				ABB5D8E01EA91E0D00B6276B /* Users.swift */,
 			);
 			name = NoSQL;
 			path = mysampleapp/amazonaws/models/nosql;
@@ -532,6 +535,7 @@
 				ABC631491E98137700EB7584 /* ViewLog.swift in Sources */,
 				E7A30F042B6BC34600000000 /* AWSMobileClient.swift in Sources */,
 				E7A30F04A183F0FA00000000 /* TeamsTable.swift in Sources */,
+				ABB5D8E11EA91E0D00B6276B /* Users.swift in Sources */,
 				C9759D9C1E9D1B9700BCE08F /* CustomTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

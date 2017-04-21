@@ -9,39 +9,47 @@
 import Foundation
 import UIKit
 import AWSCognitoIdentityProvider
+import AWSDynamoDB
+import AWSMobileHubHelper
 
 class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var theTable: UITableView!
     
+    var myUsers = [Users]()
+    
     let myArray = ["Owen", "Matt", "Ethan"]
     
-    func getUsers() -> [String] {
+    func getUsers() {
         
-        //Credit to http://stackoverflow.com/questions/41364720/search-users-amazon-cognito-with-listusers-api-or-ios-sdk for starting point with this function
-        // Make a AWSCognitoListUsers Request
-        let getUsersRequest = AWSCognitoIdentityProviderListUsersRequest()
+        let searchText = searchBar.text
+        let searchLower = searchText?.lowercased()
+
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         
-        // Add the Parameters
-        getUsersRequest?.attributesToGet = ["username"]
-        getUsersRequest?.limit = 10
-        getUsersRequest?.userPoolId = AWSCognitoUserPoolId
-//        print("pool: \(AWSCognitoIdentityProvider)")
+        let scanExpression = AWSDynamoDBScanExpression()
+
+        scanExpression.filterExpression = "begins_with(#username, :searchThis)"
+        scanExpression.expressionAttributeNames = ["#username": "username",]
         
-//        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityPoolId:"us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx‌​xx")
+        scanExpression.expressionAttributeValues = [":searchThis": searchLower!,]
         
-        print("making request")
-        // Make the Request
-        AWSCognitoIdentityProvider(forKey: AWSCognitoUserPoolId).listUsers(getUsersRequest!, completionHandler: { (response, error) in
-            print("hello")
-            print("Response: \(response)")
-            print("Error: \(error)")
-            // The response variable contains the Cognito Response
-            
+        objectMapper.scan(Users.self, expression: scanExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
+            if let error = task.error as? NSError {
+                print("The request failed. Error: \(error)")
+                self.myUsers = [Users]()
+            } else if let paginatedOutput = task.result {
+                print("Request worked")
+                for user in paginatedOutput.items as! [Users] {
+                    print(user)
+                }
+                print("Printed users")
+                self.myUsers = paginatedOutput.items as! [Users]
+                self.theTable.reloadData()
+            }
+            return nil
         })
-        print("got through")
-        return myArray
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,9 +59,14 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        
-        myCell.textLabel?.text = myArray[indexPath.row]
-        myCell.imageView?.image = UIImage.init(named: "washu")
+        if (indexPath.row < myUsers.count) {
+            myCell.textLabel?.text = myUsers[indexPath.row]._username
+//            myCell.imageView?.image = UIImage.init(named: "washu")
+        } else {
+            print(indexPath.row)
+            print(myUsers.count)
+            print(myUsers)
+        }
         return myCell
         
     }
@@ -68,9 +81,10 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("shit it worked")
-        let users = getUsers()
-        print(users)
+        getUsers()
+        print("USERS: \(myUsers)")
+//        self.theTable.reloadData()
+//        print(users)
     }
     
 }

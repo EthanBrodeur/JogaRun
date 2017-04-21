@@ -43,30 +43,51 @@ class MakeTeam: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     func getUsers() -> [String] {
         
-        //Credit to http://stackoverflow.com/questions/41364720/search-users-amazon-cognito-with-listusers-api-or-ios-sdk for starting point with this function
-        // Make a AWSCognitoListUsers Request
-        let getUsersRequest = AWSCognitoIdentityProviderListUsersRequest()
+        let objectMapper = AWSDynamoDBObjectMapper.default()
         
-        // Add the Parameters
-        //we will also want to grab the id here i think so we can keep track of id's on this new team
-        getUsersRequest?.attributesToGet = ["username"]
-        getUsersRequest?.limit = 10
-        getUsersRequest?.userPoolId = AWSCognitoUserPoolId
-        //        print("pool: \(AWSCognitoIdentityProvider)")
-        
-        //        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityPoolId:"us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx‌​xx")
-        
-        print("making request")
-        // Make the Request
-        AWSCognitoIdentityProvider(forKey: AWSCognitoUserPoolId).listUsers(getUsersRequest!, completionHandler: { (response, error) in
-            print("hello")
-            print("Response: \(response)")
-            print("Error: \(error)")
-            // The response variable contains the Cognito Response
-            
+        let queryExpression = AWSDynamoDBQueryExpression()
+        queryExpression.keyConditionExpression = "begins_with(username = :username)"
+        queryExpression.expressionAttributeNames = ["#userId": "userId",]
+        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
+        objectMapper.query(Users.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
+            if let error = task.error as? NSError {
+                print("The request failed. Error: \(error)")
+            } else if let paginatedOutput = task.result {
+                print("Request worked")
+                for user in paginatedOutput.items as! [Users] {
+                    print(user)
+                }
+                print("Printed users")
+            }
+            return nil
         })
-        print("got through")
         return usersArray
+        
+        
+//        //Credit to http://stackoverflow.com/questions/41364720/search-users-amazon-cognito-with-listusers-api-or-ios-sdk for starting point with this function
+//        // Make a AWSCognitoListUsers Request
+//        let getUsersRequest = AWSCognitoIdentityProviderListUsersRequest()
+//        
+//        // Add the Parameters
+//        //we will also want to grab the id here i think so we can keep track of id's on this new team
+//        getUsersRequest?.attributesToGet = ["username"]
+//        getUsersRequest?.limit = 10
+//        getUsersRequest?.userPoolId = AWSCognitoUserPoolId
+//        //        print("pool: \(AWSCognitoIdentityProvider)")
+//        
+//        //        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityPoolId:"us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx‌​xx")
+//        
+//        print("making request")
+//        // Make the Request
+//        AWSCognitoIdentityProvider(forKey: AWSCognitoUserPoolId).listUsers(getUsersRequest!, completionHandler: { (response, error) in
+//            print("hello")
+//            print("Response: \(response)")
+//            print("Error: \(error)")
+//            // The response variable contains the Cognito Response
+//            
+//        })
+//        print("got through")
+//        return usersArray
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
