@@ -28,6 +28,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
     var wait: Bool = true
     var milesArray: [Double] = Array(repeating: 0, count: 32)
     var timeArray: [Double] = Array(repeating: 0, count: 32)
+    var uId = AWSIdentityManager.default().identityId!
+    var myLog = true
     
     override func viewDidLoad(){
         currentMonth = calendarObj.component(.month, from: Date())
@@ -78,6 +80,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             let indivView = segue.destination as! ViewIndivLog
             indivView.dateString = String(currentMonth) + "/" + String(num) + "/" + String(currentYear)
             indivView.logInfo.logStuff = monthArray[num]
+            indivView.myLog = self.myLog
         }
         
     }
@@ -273,7 +276,7 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         let queryExpression = AWSDynamoDBQueryExpression()
         queryExpression.keyConditionExpression = "#userId = :userId"
         queryExpression.expressionAttributeNames = ["#userId": "userId",]
-        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!,]
+        queryExpression.expressionAttributeValues = [":userId": uId,]
         wait = true
         objectMapper.query(Logs.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
             if let error = task.error as? NSError {

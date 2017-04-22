@@ -179,7 +179,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="240"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Vo-qe-NxO" id="mMq-nZ-Mc5">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="240"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="239"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Miles: 16" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2J-Bw-gG7">
@@ -262,6 +262,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="createButton" destination="5Ne-9S-gFr" id="DIK-iQ-n2V"/>
                         <outlet property="dateLabel" destination="E2f-ye-x7h" id="lN6-q3-bAu"/>
                         <outlet property="tableView" destination="4q2-vi-TWW" id="ggE-zS-ZaN"/>
                     </connections>

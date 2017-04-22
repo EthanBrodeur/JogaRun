@@ -22,10 +22,13 @@ class CreateLog:UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var note: UITextView!
     var logInfo: [Logs] = []
     var add: Bool = false
+    var dateString: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if(dateString != ""){
+            date.text = dateString
+        }
         navigationController?.delegate = self
     }
     

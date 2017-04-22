@@ -12,7 +12,7 @@ import AWSCognitoIdentityProvider
 import AWSDynamoDB
 import AWSMobileHubHelper
 
-class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
+class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var theTable: UITableView!
@@ -57,11 +57,21 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource {
         return myCell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(myUsers[indexPath.row])
+        let storyboard = UIStoryboard(name: "ViewLog", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ViewLog") as! ViewLog
+        controller.myLog = false
+        controller.uId = myUsers[indexPath.row]._userId!
+        navigationController?.pushViewController(controller, animated: true)
+    }
  
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         theTable.dataSource = self
+        theTable.delegate = self
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

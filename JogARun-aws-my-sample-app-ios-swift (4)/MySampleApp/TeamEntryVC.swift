@@ -59,7 +59,11 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(teams[indexPath.row])
-        
+        let storyboard = UIStoryboard(name: "ViewTeam", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ViewTeam") as! ViewTeam
+        controller.team = teams[indexPath.row]._team!
+        navigationController?.pushViewController(controller, animated: true)
+
         
     }
 

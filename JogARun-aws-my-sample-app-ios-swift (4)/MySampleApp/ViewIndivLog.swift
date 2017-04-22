@@ -15,9 +15,13 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
     var logInfo: LogHolder = LogHolder()
     @IBOutlet weak var dateLabel: UILabel!
     var dateString: String = ""
+    var myLog = true
     
+    @IBOutlet weak var createButton: UIButton!
     override func viewDidLoad() {
-        
+        if(!myLog){
+            createButton.isEnabled = false
+        }
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
@@ -36,6 +40,7 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
         let loginController = loginStoryboard.instantiateViewController(withIdentifier: "CreateLog") as! CreateLog
         loginController.logInfo = logInfo.logStuff
         loginController.add = true
+        loginController.dateString = self.dateString
         navigationController?.pushViewController(loginController, animated: true)
     }
     
