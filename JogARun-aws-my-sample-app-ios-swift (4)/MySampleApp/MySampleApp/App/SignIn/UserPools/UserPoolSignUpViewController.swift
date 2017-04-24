@@ -59,10 +59,11 @@ class UserPoolSignUpViewController: UIViewController {
     
     @IBAction func onSignUp(_ sender: AnyObject) {
 
-        guard let userNameValue = self.userName.text, !userNameValue.isEmpty,
+        guard let userNameValue = self.userName.text, (!userNameValue.isEmpty && (self.userName.text?.lowercased() == self.userName.text)),
+            
             let passwordValue = self.password.text, !passwordValue.isEmpty else {
-            UIAlertView(title: "Missing Required Fields",
-                        message: "Username / Password are required for registration.",
+            UIAlertView(title: "Username / Password are required for registration.",
+                        message: "Username must be lowercase",
                         delegate: nil,
                         cancelButtonTitle: "Ok").show()
             return
