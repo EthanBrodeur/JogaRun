@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AWSDynamoDB
+import AWSMobileHubHelper
 
 class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -96,6 +97,61 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
             item?._userId = self.logInfo.logStuff[indexPath.row]._userId
             item?._timestamp = self.logInfo.logStuff[indexPath.row]._timestamp
             
+            let shoeToDelete = Shoes()
+            let cell = tableView.cellForRow(at: indexPath) as! CustomTableCell
+            let shoe = cell.shoe.text
+            var array = shoe?.components(separatedBy: "\n")
+            let result = array?[0]
+            
+            array = result?.components(separatedBy: ": ")
+            let result2 = array?[1]
+            
+            print("RESULT: \(result2!)")
+            shoeToDelete?._userId = AWSIdentityManager.default().identityId!
+            shoeToDelete?._shoe = result2!
+            
+            let queryExpression = AWSDynamoDBQueryExpression()
+            queryExpression.keyConditionExpression = "#userId = :userId"
+            queryExpression.expressionAttributeNames = ["#userId": "userId"]
+            queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!]
+            
+            objectMapper.query(Shoes.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
+                
+                if let error = task.error as? NSError {
+                    print("The request failed. Error: \(error)")
+                } else if let paginatedOutput = task.result {
+                    let shoeMileage = paginatedOutput.items as! [Shoes]
+                    for aShoe in shoeMileage {
+                        print("SHOES SHOES SHOES: \(aShoe._shoe!) == \(result2!)")
+                        if (aShoe._shoe! == result2!) {
+                            let actualMileage = aShoe._mileage
+
+                            let milesText = cell.miles.text!
+                            var array = milesText.components(separatedBy: ": ")
+                            let milesMiles = array[1]
+                            let newMileage = NSNumber(value: Double(actualMileage!) - Double(milesMiles)!)
+                            shoeToDelete?._mileage = newMileage
+
+                            objectMapper.remove(shoeToDelete!, completionHandler: {(error: Error?) in
+                                if let error = error {
+                                    print("The request failed. Error: \(error)")
+                                } else {
+                                    shoeToDelete?._mileage = newMileage
+                                    objectMapper.save(shoeToDelete!, completionHandler: {(error: Error?) -> Void in
+                                        if let error = error {
+                                            print("Amazon DynamoDB Save Error: \(error)")
+                                            return
+                                        }
+                                        print("Shoe saved.")
+                                    })
+                                }
+                            })
+                        }
+                    }
+                }
+                return nil
+            })
+
             
             objectMapper.remove(item!, completionHandler: {(error: Error?) in
                 DispatchQueue.main.async(execute: {

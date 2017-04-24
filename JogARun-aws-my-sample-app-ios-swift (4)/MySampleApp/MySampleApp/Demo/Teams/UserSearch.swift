@@ -22,6 +22,25 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
     var teamToAdd = ""
     fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
+    func getAllUsers() {
+        let objectMapper = AWSDynamoDBObjectMapper.default()
+        
+        let scanExpression = AWSDynamoDBScanExpression()
+        
+        objectMapper.scan(Users.self, expression: scanExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
+            if let error = task.error as? NSError {
+                print("The request failed. Error: \(error)")
+                self.myUsers = [Users]()
+            } else if let paginatedOutput = task.result {
+                self.myUsers = paginatedOutput.items as! [Users]
+                DispatchQueue.main.async {
+                    self.theTable.reloadData()
+                }
+            }
+            return nil
+        })
+    }
+    
     func getUsers() {
         
         let searchText = searchBar.text
@@ -113,15 +132,20 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
         navigationItem.rightBarButtonItem!.target = self
         navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
         navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
+        getAllUsers()
     }
     
     
-func goBackHome() {
-    navigationController?.popToRootViewController(animated: true)
-}
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        getUsers()
+    func goBackHome() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText == "") {
+            getAllUsers()
+        } else {
+            getUsers()
+        }
     }
     
 }

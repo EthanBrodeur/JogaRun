@@ -166,6 +166,9 @@ func goBackHome() {
         }
         itemToCreate._date = date.text
         itemToCreate._notes = note.text
+        if(itemToCreate._notes == ""){
+            itemToCreate._notes = " "
+        }
         itemToCreate._shoe = shoe.text
         itemToCreate._distance = NSNumber(value:Double(miles.text!)!)
         itemToCreate._time = NSNumber(value:Double((time.text?.replacingOccurrences(of: ":", with: "."))!)!)
