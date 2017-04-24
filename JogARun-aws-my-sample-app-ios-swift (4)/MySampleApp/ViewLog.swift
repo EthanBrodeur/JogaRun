@@ -30,11 +30,16 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
     var timeArray: [Double] = Array(repeating: 0, count: 32)
     var uId = AWSIdentityManager.default().identityId!
     var myLog = true
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     override func viewDidLoad(){
         currentMonth = calendarObj.component(.month, from: Date())
         currentYear = calendarObj.component(.year, from: refDate)
         dC = DateComponents(year: currentYear,month: currentMonth)
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,6 +68,10 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         displayData()
         displayMiles()
         calendar.reloadData()
+    }
+    
+    func goBackHome() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -202,7 +211,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9562007785, green: 0.6269171834, blue: 0.3377318978, alpha: 0.7497844828)
+            cell.alpha = 0.75
             cell.number = -1
             return cell
         }
@@ -212,7 +222,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9562007785, green: 0.6269171834, blue: 0.3377318978, alpha: 0.7497844828)
+            cell.alpha = 0.75
             cell.number = -1
             return cell
         }
@@ -222,7 +233,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9562007785, green: 0.6269171834, blue: 0.3377318978, alpha: 0.7497844828)
+            cell.alpha = 0.75
             cell.number = -1
             return cell
         }
@@ -232,7 +244,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
             cell.milesLabel.text = ""
             cell.miles.text = ""
             cell.time.text = ""
-            cell.backgroundColor = #colorLiteral(red: 0.7233663201, green: 0.7233663201, blue: 0.7233663201, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9562007785, green: 0.6269171834, blue: 0.3377318978, alpha: 0.7497844828)
+            cell.alpha = 0.75
             cell.number = -1
             return cell
         }
@@ -355,6 +368,8 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         }
         
     }
+    
+    
     
     
     

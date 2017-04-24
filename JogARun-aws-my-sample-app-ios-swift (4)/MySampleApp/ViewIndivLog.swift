@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AWSDynamoDB
 
 class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -16,15 +17,24 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var dateLabel: UILabel!
     var dateString: String = ""
     var myLog = true
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     @IBOutlet weak var createButton: UIButton!
     override func viewDidLoad() {
         if(!myLog){
             createButton.isEnabled = false
         }
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
+    }
+    
+    func goBackHome() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,6 +70,48 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         return logInfo.logStuff.count
         
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if myLog {
+            return .delete
+        }
+        
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCellEditingStyle,
+                   forRowAt indexPath: IndexPath){
+        if tableView.cellForRow(at: indexPath)?.editingStyle == UITableViewCellEditingStyle.delete{
+        let alertController = UIAlertController(title: "Remove log?", message: "", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            // ...
+        }
+        alertController.addAction(cancelAction)
+        
+        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+            let objectMapper = AWSDynamoDBObjectMapper.default()
+            let item = Logs()
+            item?._userId = self.logInfo.logStuff[indexPath.row]._userId
+            item?._timestamp = self.logInfo.logStuff[indexPath.row]._timestamp
+            
+            
+            objectMapper.remove(item!, completionHandler: {(error: Error?) in
+                DispatchQueue.main.async(execute: {
+                    
+                })
+            })
+            self.logInfo.logStuff.remove(at: indexPath.row)
+            tableView.reloadData()
+            
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true) {
+            // ...
+        }
+        return
+        }
     }
     
     func calculatePace(time: Double, miles: Double) -> String {

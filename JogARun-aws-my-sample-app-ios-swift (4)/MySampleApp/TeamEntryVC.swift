@@ -16,6 +16,7 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     @IBOutlet weak var teamList: UITableView!
     var teams: [Teams] = []
     var wait: Bool = true
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     
     override func viewDidLoad() {
@@ -23,9 +24,18 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         dbQuery()
         teamList.dataSource = self
         teamList.delegate = self
+        
         // Do any additional setup after loading the view.
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
     }
-    
+
+func goBackHome() {
+    navigationController?.popToRootViewController(animated: true)
+}
+
     @IBAction func addTeam(_ sender: UIButton) {
         
         let storyboard = UIStoryboard(name: "MakeTeam", bundle: nil)
@@ -37,7 +47,6 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         dbQuery()
     }
@@ -59,7 +68,7 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(teams[indexPath.row])
+        //print(teams[indexPath.row])
         let storyboard = UIStoryboard(name: "ViewTeam", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ViewTeam") as! ViewTeam
         controller.team = teams[indexPath.row]._team!
@@ -82,16 +91,17 @@ class TeamEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             } else if let paginatedOutput = task.result {
                 for team in paginatedOutput.items as! [Teams] {
                     self.teams.append(team)
-                    DispatchQueue.main.async {
-                        self.teamList.reloadData()
-                        if self.teams.count > 0 {
-                            self.noTeamsEnteredLabel.text = ""
-                        }
-                        else {
-                            self.noTeamsEnteredLabel.text = "You have no teams yet!"
-                        }
+                }
+                DispatchQueue.main.async {
+                    self.teamList.reloadData()
+                    if self.teams.count > 0 {
+                        self.noTeamsEnteredLabel.text = ""
+                    }
+                    else {
+                        self.noTeamsEnteredLabel.text = "You have no teams yet!"
                     }
                 }
+                
                 self.wait = false
             }
             return nil

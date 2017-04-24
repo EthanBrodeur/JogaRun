@@ -23,6 +23,8 @@ class MakeTeam: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     var usersToAdd: [String] = []     //ulimately i think these should be user ID's instead of usernames but
     var myUsers = [Users]()
     var currentMembers = [Users]()
+    var update: Bool = false
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,15 @@ class MakeTeam: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         currentTeamTable.dataSource = self
         currentTeamTable.delegate = self
         getAllUsers()
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
     }
+    
+func goBackHome() {
+    navigationController?.popToRootViewController(animated: true)
+}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

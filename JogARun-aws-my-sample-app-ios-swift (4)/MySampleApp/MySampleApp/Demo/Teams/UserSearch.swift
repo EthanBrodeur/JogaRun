@@ -18,6 +18,9 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
     @IBOutlet weak var theTable: UITableView!
     
     var myUsers = [Users]()
+    var addUserToTeam = false
+    var teamToAdd = ""
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     func getUsers() {
         
@@ -59,12 +62,46 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
         print(myUsers[indexPath.row])
-        let storyboard = UIStoryboard(name: "ViewLog", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ViewLog") as! ViewLog
-        controller.myLog = false
-        controller.uId = myUsers[indexPath.row]._userId!
-        navigationController?.pushViewController(controller, animated: true)
+        if(addUserToTeam){
+            let alertController = UIAlertController(title: "Add user to " + self.teamToAdd + "?", message: "", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+                // ...
+            }
+            alertController.addAction(cancelAction)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+                let objectMapper = AWSDynamoDBObjectMapper.default()
+                
+                let itemToCreate: Teams = Teams()
+                itemToCreate._team = self.teamToAdd
+                itemToCreate._userId = self.myUsers[indexPath.row]._userId
+                itemToCreate._username = self.myUsers[indexPath.row]._username
+                objectMapper.save(itemToCreate, completionHandler: {(error: Error?) -> Void in
+                    if let error = error {
+                        print("Amazon DynamoDB Save Error: \(error)")
+                        return
+                    }
+                    print("Item saved.")
+                })
+                
+            }
+            alertController.addAction(OKAction)
+            self.present(alertController, animated: true) {
+                // ...
+            }
+            
+            
+        }
+        else {
+            let storyboard = UIStoryboard(name: "ViewLog", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "ViewLog") as! ViewLog
+            controller.myLog = false
+            controller.uId = myUsers[indexPath.row]._userId!
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
  
     override func viewDidLoad() {
@@ -72,8 +109,17 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
         searchBar.delegate = self
         theTable.dataSource = self
         theTable.delegate = self
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
     }
     
+    
+func goBackHome() {
+    navigationController?.popToRootViewController(animated: true)
+}
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         getUsers()
     }

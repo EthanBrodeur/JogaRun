@@ -21,6 +21,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
     @IBOutlet weak var shoe: UILabel!
     @IBOutlet weak var note: UITextView!
     @IBOutlet weak var shoePicker: UITableView!
+    fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     var logInfo: [Logs] = []
     var add: Bool = false
@@ -29,35 +30,31 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
     var wait = true
     var selectedShoe: Shoes = Shoes()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if(dateString != ""){
-            date.text = dateString
-        }
-        navigationItem.rightBarButtonItem = homeButton
-        navigationItem.rightBarButtonItem!.target = self
-        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
-        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
-        navigationController?.delegate = self
-    }
-    func goBackHome() {
-        navigationController?.popToRootViewController(animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         shoePicker.dataSource = self
         shoePicker.delegate = self
-    
+        
         if(dateString != ""){
             date.text = dateString
         }
+        navigationController?.delegate = self
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
         navigationController?.delegate = self
         loadShoes()
     }
     
     
-    
+func goBackHome() {
+    navigationController?.popToRootViewController(animated: true)
+}
+
+
+
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if(add){
             (viewController as? ViewIndivLog)?.logInfo.logStuff = logInfo // Here you pass the to your original view controller
@@ -88,7 +85,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         let objectMapper = AWSDynamoDBObjectMapper.default()
         
         let itemToCreate: Shoes = Shoes()
-
+        
         itemToCreate._userId = AWSIdentityManager.default().identityId!
         itemToCreate._shoe = textField.text
         itemToCreate._mileage = 0.0
@@ -127,9 +124,9 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         var matches = regex.matches(in: date.text!, options: [], range: NSRange(location: 0, length: date.text!.characters.count))
         if(matches.isEmpty){
             UIAlertView(title: "Error: invalid Date",
-                    message: "must be in form MM/DD/YYYY",
-                    delegate: nil,
-                    cancelButtonTitle: "Ok").show()
+                        message: "must be in form MM/DD/YYYY",
+                        delegate: nil,
+                        cancelButtonTitle: "Ok").show()
             return
         }
         let milesRegex = "[\\d]+[.]?[\\d]{0,2}"
@@ -218,7 +215,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         
         var array = shoe.text?.components(separatedBy: "\n")
         let result = array?[0]
-
+        
         print("RESULT: \(result!)")
         shoeToCreate._shoe = result!
         
@@ -257,7 +254,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         if times == nil || dist == nil{
             return
         }
-       
+        
         
         var sec = times! - Double(Int(times!))
         print(sec)
