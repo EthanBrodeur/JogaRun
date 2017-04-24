@@ -31,6 +31,21 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(dateString != ""){
+            date.text = dateString
+        }
+        navigationItem.rightBarButtonItem = homeButton
+        navigationItem.rightBarButtonItem!.target = self
+        navigationItem.rightBarButtonItem!.title = NSLocalizedString("Home", comment: "")
+        navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
+        navigationController?.delegate = self
+    }
+    func goBackHome() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         shoePicker.dataSource = self
         shoePicker.delegate = self
     
@@ -40,6 +55,8 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         navigationController?.delegate = self
         loadShoes()
     }
+    
+    
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if(add){

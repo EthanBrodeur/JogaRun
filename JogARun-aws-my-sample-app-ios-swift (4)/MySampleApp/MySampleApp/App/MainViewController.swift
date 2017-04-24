@@ -32,16 +32,16 @@ class MainViewController: UITableViewController {
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Search for Another User",
                                           comment: "Description for demo menu option."),
-                icon: "UserIdentityIcon", storyboard: "UserSearch")
+                icon: "Search", storyboard: "UserSearch")
             demoFeatures.append(demoFeature)
         }
         else {
             var demoFeature = DemoFeature.init(
-                name: NSLocalizedString("Create Log",
+                name: NSLocalizedString("Add Log",
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Create a new workout",
                                           comment: "Description for demo menu option."),
-                icon: "UserIdentityIcon", storyboard: "CreateLog")
+                icon: "Add", storyboard: "CreateLog")
             
             demoFeatures.append(demoFeature)
             
@@ -50,7 +50,7 @@ class MainViewController: UITableViewController {
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("View your logs",
                                           comment: "Description for demo menu option."),
-                icon: "NoSQLIcon", storyboard: "ViewLog")
+                icon: "Runner", storyboard: "ViewLog")
             
             demoFeatures.append(demoFeature)
             
@@ -59,7 +59,7 @@ class MainViewController: UITableViewController {
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Create and view Team Pages",
                                           comment: "Description for demo menu option."),
-                icon: "NoSQLIcon", storyboard: "TeamEntry")
+                icon: "Team", storyboard: "TeamEntry")
             
             demoFeatures.append(demoFeature)
             
@@ -69,7 +69,7 @@ class MainViewController: UITableViewController {
                                         comment: "Label for demo menu option."),
                 detail: NSLocalizedString("Search for Another User",
                                           comment: "Description for demo menu option."),
-                icon: "UserIdentityIcon", storyboard: "UserSearch")
+                icon: "Search", storyboard: "UserSearch")
             demoFeatures.append(demoFeature)
         }
         
