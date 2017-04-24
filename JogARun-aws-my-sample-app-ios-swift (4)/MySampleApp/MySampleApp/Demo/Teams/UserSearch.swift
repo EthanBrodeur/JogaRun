@@ -45,11 +45,11 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
         
         let searchText = searchBar.text
         let searchLower = searchText?.lowercased()
-
+        
         let objectMapper = AWSDynamoDBObjectMapper.default()
         
         let scanExpression = AWSDynamoDBScanExpression()
-
+        
         scanExpression.filterExpression = "begins_with(#username, :searchThis)"
         scanExpression.expressionAttributeNames = ["#username": "username",]
         
@@ -117,12 +117,14 @@ class UserSearch: UIViewController, UISearchBarDelegate, UITableViewDataSource, 
         else {
             let storyboard = UIStoryboard(name: "ViewLog", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "ViewLog") as! ViewLog
-            controller.myLog = false
-            controller.uId = myUsers[indexPath.row]._userId!
+            if(myUsers[indexPath.row]._userId! != AWSIdentityManager.default().identityId!){
+                controller.myLog = false
+                controller.uId = myUsers[indexPath.row]._userId!
+            }
             navigationController?.pushViewController(controller, animated: true)
         }
     }
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self

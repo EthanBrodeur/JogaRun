@@ -88,6 +88,15 @@ func goBackHome() {
         
         itemToCreate._userId = AWSIdentityManager.default().identityId!
         itemToCreate._shoe = textField.text
+        for s in myShoes{
+            if s._shoe == itemToCreate._shoe{
+                UIAlertView(title: "Shoe already exists",
+                            message: "",
+                            delegate: nil,
+                            cancelButtonTitle: "Ok").show()
+                return true
+            }
+        }
         itemToCreate._mileage = 0.0
         objectMapper.save(itemToCreate, completionHandler: {(error: Error?) -> Void in
             if let error = error {
@@ -197,7 +206,7 @@ func goBackHome() {
         queryExpression.keyConditionExpression = "#userId = :userId"
         queryExpression.expressionAttributeNames = ["#userId": "userId",]
         queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!]
-        
+       
         objectMapper.query(Shoes.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
             
             if let error = task.error as? NSError {

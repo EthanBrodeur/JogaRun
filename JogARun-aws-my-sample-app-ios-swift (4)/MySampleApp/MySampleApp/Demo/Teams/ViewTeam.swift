@@ -51,17 +51,18 @@ func goBackHome() {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return teams.count
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(teams[indexPath.row])
         let storyboard = UIStoryboard(name: "ViewLog", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ViewLog") as! ViewLog
-        controller.myLog = false
-        controller.uId = teams[indexPath.row]._userId!
+        if(teams[indexPath.row]._userId! != AWSIdentityManager.default().identityId!){
+            controller.myLog = false
+            controller.uId = teams[indexPath.row]._userId!
+        }
+        
         navigationController?.pushViewController(controller, animated: true)
     }
     
