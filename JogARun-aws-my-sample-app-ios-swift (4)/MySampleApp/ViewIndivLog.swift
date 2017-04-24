@@ -50,7 +50,7 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
         cell.miles.text = "Miles: " + String(describing: logInfo.logStuff[indexPath.row]._distance!)
         cell.title.text = "Title: " + String(describing: logInfo.logStuff[indexPath.row]._title!)
         cell.time.text = "Time: " + String(describing: logInfo.logStuff[indexPath.row]._time!)
-        //cell.shoe.text = "Shoe: " + String(describing: logInfo[indexPath.row]._shoe!["shoe" + String(indexPath.row)]!)
+        cell.shoe.text = "Shoe: " + String(describing: logInfo.logStuff[indexPath.row]._shoe!)
         cell.note.text = String(describing: logInfo.logStuff[indexPath.row]._notes!)
         cell.pace.text = "Pace: " + calculatePace(time: logInfo.logStuff[indexPath.row]._time as! Double, miles: logInfo.logStuff[indexPath.row]._distance as! Double)
         return cell

@@ -127,7 +127,7 @@ class LogsTable: NSObject, Table {
         itemForGet._date = " "
         itemForGet._distance = NoSQLSampleDataGenerator.randomSampleNumber()
         itemForGet._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
-        itemForGet._shoe = NoSQLSampleDataGenerator.randomSampleMap()
+//        itemForGet._shoe = NoSQLSampleDataGenerator.randomSampleMap()
         itemForGet._time = NoSQLSampleDataGenerator.randomSampleNumber()
         itemForGet._title = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Title")
         
@@ -152,7 +152,7 @@ class LogsTable: NSObject, Table {
             item._date = " "
             item._distance = NoSQLSampleDataGenerator.randomSampleNumber()
             item._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
-            item._shoe = NoSQLSampleDataGenerator.randomSampleMap()
+//            item._shoe = NoSQLSampleDataGenerator.randomSampleMap()
             item._time = NoSQLSampleDataGenerator.randomSampleNumber()
             item._title = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Title")
             
@@ -225,7 +225,7 @@ class LogsTable: NSObject, Table {
         itemToUpdate._date = " "
         itemToUpdate._distance = NoSQLSampleDataGenerator.randomSampleNumber()
         itemToUpdate._notes = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Notes")
-        itemToUpdate._shoe = NoSQLSampleDataGenerator.randomSampleMap()
+//        itemToUpdate._shoe = NoSQLSampleDataGenerator.randomSampleMap()
         itemToUpdate._time = NoSQLSampleDataGenerator.randomSampleNumber()
         itemToUpdate._title = NoSQLSampleDataGenerator.randomSampleStringWithAttributeName("Title")
         

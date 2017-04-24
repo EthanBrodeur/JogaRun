@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		ABA8565E1EA2A92D0007B3BB /* UserSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */; };
 		ABA856601EA2AA310007B3BB /* UserSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8565F1EA2AA310007B3BB /* UserSearch.swift */; };
 		ABB5D8E11EA91E0D00B6276B /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB5D8E01EA91E0D00B6276B /* Users.swift */; };
+		ABC1862F1EAD3A960051D806 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1862E1EAD3A960051D806 /* TextInputTableViewCell.swift */; };
+		ABC519F11EAD075C006DFA41 /* Shoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC519F01EAD075C006DFA41 /* Shoes.swift */; };
 		ABC631421E9806C500EB7584 /* CreateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC631411E9806C500EB7584 /* CreateLog.swift */; };
 		ABC631441E9806CF00EB7584 /* CreateLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631431E9806CF00EB7584 /* CreateLog.storyboard */; };
 		ABC631471E98136F00EB7584 /* ViewLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC631461E98136F00EB7584 /* ViewLog.storyboard */; };
@@ -150,6 +152,8 @@
 		ABA8565D1EA2A92D0007B3BB /* UserSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserSearch.storyboard; path = MySampleApp/Demo/Teams/UserSearch.storyboard; sourceTree = SOURCE_ROOT; };
 		ABA8565F1EA2AA310007B3BB /* UserSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSearch.swift; path = MySampleApp/Demo/Teams/UserSearch.swift; sourceTree = SOURCE_ROOT; };
 		ABB5D8E01EA91E0D00B6276B /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = MySampleApp/AmazonAws/Models/NoSQL/Users.swift; sourceTree = SOURCE_ROOT; };
+		ABC1862E1EAD3A960051D806 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextInputTableViewCell.swift; path = MySampleApp/Demo/NoSQL/TextInputTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		ABC519F01EAD075C006DFA41 /* Shoes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shoes.swift; path = MySampleApp/AmazonAws/Models/NoSQL/Shoes.swift; sourceTree = SOURCE_ROOT; };
 		ABC631411E9806C500EB7584 /* CreateLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLog.swift; sourceTree = SOURCE_ROOT; };
 		ABC631431E9806CF00EB7584 /* CreateLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateLog.storyboard; sourceTree = SOURCE_ROOT; };
 		ABC631461E98136F00EB7584 /* ViewLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ViewLog.storyboard; sourceTree = SOURCE_ROOT; };
@@ -215,6 +219,7 @@
 			children = (
 				ABC631411E9806C500EB7584 /* CreateLog.swift */,
 				ABC631431E9806CF00EB7584 /* CreateLog.storyboard */,
+				ABC1862E1EAD3A960051D806 /* TextInputTableViewCell.swift */,
 			);
 			name = CreateLog;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				1DD70E29DBDA723700000000 /* Logs.swift */,
 				1DD70E29A822000700000000 /* Teams.swift */,
 				ABB5D8E01EA91E0D00B6276B /* Users.swift */,
+				ABC519F01EAD075C006DFA41 /* Shoes.swift */,
 			);
 			name = NoSQL;
 			path = mysampleapp/amazonaws/models/nosql;
@@ -460,7 +466,7 @@
 				LastUpgradeCheck = 0820;
 			};
 			buildConfigurationList = 218C37090000000000000000 /* Build configuration list for PBXProject "MySampleApp" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -547,8 +553,10 @@
 				E7A30F04026F651800000000 /* NoSQLTableListViewController.swift in Sources */,
 				C91B0B751E9C4E5A00623683 /* CustomCollectionCell.swift in Sources */,
 				E7A30F049F990A4500000000 /* NoSQLTableFactory.swift in Sources */,
+				ABC519F11EAD075C006DFA41 /* Shoes.swift in Sources */,
 				E7A30F04C109829400000000 /* UserPoolMFAViewController.swift in Sources */,
 				E7A30F045A80774200000000 /* AppDelegate.swift in Sources */,
+				ABC1862F1EAD3A960051D806 /* TextInputTableViewCell.swift in Sources */,
 				C9683C751EAA815500B3E5AE /* TeamTableCell.swift in Sources */,
 				E7A30F0463F3EFD900000000 /* UserPoolForgotPasswordViewController.swift in Sources */,
 				681D870F1EA90D1000103A8B /* MakeTeam.swift in Sources */,
@@ -611,7 +619,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
@@ -684,7 +692,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
