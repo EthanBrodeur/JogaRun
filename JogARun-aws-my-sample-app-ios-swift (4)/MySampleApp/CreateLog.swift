@@ -101,6 +101,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
                         message: "Please select above",
                         delegate: nil,
                         cancelButtonTitle: "Ok").show()
+            return
         }
         
         //CHECK FIELDS
@@ -134,6 +135,7 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
                         cancelButtonTitle: "Ok").show()
             return
         }
+        navigationController?.popViewController(animated: true)
         insertData()
     }
     
@@ -196,87 +198,31 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
     func updateShoes() {
         let shoeToCreate: Shoes = Shoes()
         shoeToCreate._userId = AWSIdentityManager.default().identityId!
-        shoeToCreate._shoe = shoe.text
         
-        shoeToCreate._mileage = NSNumber(value: Double(selectedShoe._mileage!) + Double(self.miles.text!)!)
-//        
-////        var breaker = NSCharacterSet(charactersIn: "\n")
-//        
         var array = shoe.text?.components(separatedBy: "\n")
         let result = array?[0]
-//        guard shoeToCreate._shoe = result! else {
-//            print("Something went wrong with shoes")
-//            return
-//        }
-        print("RESULT: \(result!)")
-//
-        shoeToCreate._shoe = result!
-//        let result2 = result!
-//        print("RESULT2: \(result2)")
-//        shoeToCreate._shoe = result
-//        print("SHOE: \(shoeToCreate._shoe)")
-//        
-//////        let shoeRegex = ".*(\\n)"
-////        print(shoeRegex)
-////
-////        let regex = try! NSRegularExpression(pattern:shoeRegex,options:[])
-////        let matches = regex.matches(in: shoe.text!, options: [], range: NSRange(location: 0, length: shoe.text!.characters.count))
-////        if(matches.isEmpty){
-////            UIAlertView(title: "Error: invalid Date",
-////                        message: "must be in form MM/DD/YYYY",
-////                        delegate: nil,
-////                        cancelButtonTitle: "Ok").show()
-////            return
-////        } else {
-////            print("MATCHES: \(matches)")
-////        }
-////        let actualShoe = matches.map { NSString.substring(with: $0.range)}
-////        
-////        print("PRINTFUCKSHIT: \(actualShoe)")
-////        shoeToCreate._shoe = actualShoe
 
+        print("RESULT: \(result!)")
+        shoeToCreate._shoe = result!
+        
+        shoeToCreate._mileage = selectedShoe._mileage
         
         let objectMapper = AWSDynamoDBObjectMapper.default()
-        let dynamoDB = AWSDynamoDB.default()
         
-        let queryExpression = AWSDynamoDBQueryExpression()
-        queryExpression.keyConditionExpression = "#userId = :userId AND #shoe = :shoe"
-        queryExpression.expressionAttributeNames = ["#userId": "userId", "#shoe": "shoe"]
-        queryExpression.expressionAttributeValues = [":userId": AWSIdentityManager.default().identityId!, ":shoe": shoe.text!]
-        
-        dynamoDB.updateItem(shoeToCreate, completionHandler: {(error: Error?) -> Void in
+        objectMapper.remove(shoeToCreate, completionHandler: {(error: Error?) in
             if let error = error {
-                print("Amazon DynamoDB Save Error: \(error)")
-                return
+                print("The request failed. Error: \(error)")
+            } else {
+                shoeToCreate._mileage = NSNumber(value: Double(self.selectedShoe._mileage!) + Double(self.miles.text!)!)
+                objectMapper.save(shoeToCreate, completionHandler: {(error: Error?) -> Void in
+                    if let error = error {
+                        print("Amazon DynamoDB Save Error: \(error)")
+                        return
+                    }
+                    print("Shoe saved.")
+                })
             }
-            print("Shoe saved.")
         })
-
-        
-//        objectMapper.query(Shoes.self, expression: queryExpression).continueWith(block: { (task:AWSTask<AWSDynamoDBPaginatedOutput>!) -> Any? in
-//            if let error = task.error as? NSError {
-//                print("The request failed. Error: \(error)")
-//            } else if let paginatedOutput = task.result {
-//                for shoe in paginatedOutput.items as! [Shoes] {
-//                    
-//                    print(shoe)
-//                }
-//                let shoes = paginatedOutput.items as! [Shoes]
-//                if (shoes.count != 1) {
-//                    print("Error: shoe does not exist, or there is more than 1 shoe with same name in database")
-//                } else {
-////                    shoeToCreate._mileage = NSNumber(value: Double(shoes[0]._mileage!) + Double(self.miles.text!)!)
-//                    objectMapper.save(shoeToCreate, completionHandler: {(error: Error?) -> Void in
-//                        if let error = error {
-//                            print("Amazon DynamoDB Save Error: \(error)")
-//                            return
-//                        }
-//                        print("Shoe saved.")
-//                    })
-//                }
-//            }
-//            return nil
-//        })
         
     }
     
