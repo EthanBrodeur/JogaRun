@@ -73,6 +73,9 @@ func goBackHome() {
                     return
                 }
                 print("Item saved.")
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
             })
         }
     }
