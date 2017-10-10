@@ -369,9 +369,4 @@ class ViewLog: UIViewController, UICollectionViewDataSource, UICollectionViewDel
         
     }
     
-    
-    
-    
-    
-    
 }

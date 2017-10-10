@@ -32,9 +32,9 @@ class ViewTeam: UIViewController, UITableViewDataSource, UITableViewDelegate {
         navigationItem.rightBarButtonItem!.action = #selector(self.goBackHome)
     }
 
-func goBackHome() {
-    navigationController?.popToRootViewController(animated: true)
-}
+    func goBackHome() {
+        navigationController?.popToRootViewController(animated: true)
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         teamNameLabel.text = team

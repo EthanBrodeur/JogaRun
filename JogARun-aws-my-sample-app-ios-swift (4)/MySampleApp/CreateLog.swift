@@ -48,6 +48,11 @@ class CreateLog:UIViewController, UINavigationControllerDelegate, UITableViewDat
         loadShoes()
     }
     
+    @IBAction func shoeEntered(_ sender: UITextField) {
+        if(!textFieldShouldReturn(sender)) {
+            print("Failed to add shoe")
+        }
+    }
     
 func goBackHome() {
     navigationController?.popToRootViewController(animated: true)
@@ -128,7 +133,7 @@ func goBackHome() {
         }
         
         //CHECK FIELDS
-        let dateRegex = "^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$"
+        let dateRegex = "^(\\d{1,2})\\/\\d{1,2}\\/\\d{4}$"
         var regex = try! NSRegularExpression(pattern:dateRegex,options:[])
         var matches = regex.matches(in: date.text!, options: [], range: NSRange(location: 0, length: date.text!.characters.count))
         if(matches.isEmpty){
@@ -137,7 +142,10 @@ func goBackHome() {
                         delegate: nil,
                         cancelButtonTitle: "Ok").show()
             return
+        } else if (matches[0].rangeAt(1).length == 1) {
+            date.text = "0" + date.text!
         }
+        print("MATCH MATCH MATCH: \(matches[0].rangeAt(1).length)")
         let milesRegex = "[\\d]+[.]?[\\d]{0,2}"
         regex = try! NSRegularExpression(pattern:milesRegex,options:[])
         matches = regex.matches(in: miles.text!, options: [], range: NSRange(location: 0, length: miles.text!.characters.count))
@@ -170,9 +178,7 @@ func goBackHome() {
         print(Double(miles.text!)!)
         
         itemToCreate._userId = AWSIdentityManager.default().identityId!
-        if(date.text?.characters.count == 9 || date.text?.characters.count == 8){
-            date.text = "0" + date.text!
-        }
+        
         itemToCreate._date = date.text
         itemToCreate._notes = note.text
         if(itemToCreate._notes == ""){

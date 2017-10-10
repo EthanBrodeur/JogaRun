@@ -21,6 +21,7 @@ class ViewIndivLog: UIViewController, UITableViewDataSource, UITableViewDelegate
     fileprivate let homeButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
     @IBOutlet weak var createButton: UIButton!
+    
     override func viewDidLoad() {
         if(!myLog){
             createButton.isEnabled = false
